@@ -7,6 +7,12 @@
 int equal(double a, double b, double tau, double epsilon);
 
 int main(int argc, char** argv) {
+	
+	// Exit program if not enough inputs for "equal" function
+	if (argc < 5) {
+		printf("Please provide 4 inputs for the equal function!\n");
+		exit(0);
+	}
 
 	int i = 1;
 

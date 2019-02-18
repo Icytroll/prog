@@ -1,0 +1,38 @@
+Max integer, while:    2147483647
+Max integer, for:      2147483647
+Max integer, do while: 2147483647
+INT_MAX =              2147483647
+
+Min integer, while:    -2147483648
+Min integer, for:      -2147483648
+Max integer, do while: -2147483648
+INT_MIN =              -2147483648
+
+Machine epsilon, float, while:    1.19209e-07
+Machine epsilon, float, for:      1.19209e-07
+Machine epsilon, float, do while: 1.19209e-07
+FLT_EPSILON =                     1.19209e-07
+
+Machine epsilon, double, while:    2.22045e-16
+Machine epsilon, double, for:      2.22045e-16
+Machine epsilon, double, do while: 2.22045e-16
+DBL_EPSILON =                      2.22045e-16
+
+Machine epsilon, float, while:    1.0842e-19
+Machine epsilon, float, for:      1.0842e-19
+Machine epsilon, float, do while: 1.0842e-19
+LDBL_EPSILON =                    1.0842e-19
+
+sum_up_float    = 15.4037
+sum_down_float  = 18.8079
+
+The difference between the above two sums is that sum_up_float fills up its variable with lots of numbers before it gets to the small stuff, at which point the precision of the float is all used up.
+The float precision is not as much a problem for sum_down, as it includes the small stuff first and therefore keeps that precision until the end of the sum.
+
+The float sums do seem to converge to the above numbers, as we can't add anything extra to the sum once max becomes large enough.
+
+sum_up_double   = 21.3716
+sum_down_double = 21.3716
+The double sums are equal since there in this case is plenty of precision to go around, as INT_MAX only uses ~10 digits of precision and a double has precision up to 16 digits.
+
+a and b are equal: 1

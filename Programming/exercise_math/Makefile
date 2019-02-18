@@ -1,7 +1,10 @@
 CFLAGS = -Wall -std=gnu99 -O1
 LDLIBS = -lm
-CC = gcc
+
+default: main
+
+main: main.o
 
 .PHONEY:clean
 clean:
-	find -type f -executable -delete
+	$(RM) main main.o

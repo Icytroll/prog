@@ -1,4 +1,4 @@
-CFLAGS = -Wall -std=gnu99 -O1
+CFLAGS = -Wall -std=gnu99 -O
 LDLIBS = -lm
 .PHONEY: all clean
 all              : out.txt           ; cat $<

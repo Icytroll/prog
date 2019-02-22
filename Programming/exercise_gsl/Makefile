@@ -1,4 +1,4 @@
-CFLAGS = -Wall -std=gnu99 $$(gls-config --clfags)
+CFLAGS = -Wall -std=gnu99 $$(gsl-config --cflags)
 LDLIBS = `gsl-config --libs`
 
 all: airy.svg data.txt out.txt

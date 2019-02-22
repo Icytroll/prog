@@ -5,7 +5,7 @@
 
 int main() {
 	
-	/* Make data for Ai and Bi */
+	/* Make a data file for Ai and Bi */
 
 	FILE * fid;
 	double aa = -15, bb = 5, n = 1000;
@@ -38,16 +38,17 @@ int main() {
 	gsl_linalg_LU_solve  (&A.matrix, p, &b.vector, x);
 
 	printf("x = \n");
-	gsl_vector_fprintf(stdout, x, "%g");
+	gsl_vector_fprintf(stdout, x, "%.3g");
 	printf("\n");
 	
-	// redefine A for normal matrix operations
+	// redefine A-matrix for normal matrix operations
 	double A_sol[3][3] = {{ 6.13, -2.90,  5.86},
 	                      { 8.08, -6.31, -3.89},
 	                      {-4.36,  1.00,  0.19}};
 
 	double b_sol[3] = {0};
-
+	
+	// Manual multiplication
 	printf("Multiplication of A and x:\n");
 	for(int i=0;i<3;i++) {
 		for(int j=0;j<3;j++) {
@@ -59,7 +60,8 @@ int main() {
 	printf("Should be:\n");
 	for(int i=0;i<3;i++)
 		printf("%g\n",b_data[i]);
-		
+	
+	// free up memory
 	gsl_permutation_free(p);
 	gsl_vector_free(x);
 	

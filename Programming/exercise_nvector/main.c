@@ -1,7 +1,11 @@
 #include "nvector.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include <math.h>
 #define RND (double)rand()/RAND_MAX
+#define TINY 1e-6
+
+int double_equal(double a, double b, double tau, double epsilon);
 
 int main()
 {
@@ -17,8 +21,8 @@ int main()
 	int i = n / 2;
 	nvector_set(v, i, value);
 	double vi = nvector_get(v, i);
-	//if (nvector_equal(vi, value)) printf("test passed\n");
-	//else printf("test failed\n");
+	if (double_equal(vi, value,TINY,TINY)) printf("test passed\n");
+	else printf("test failed\n");
 
 	printf("\nmain: testing nvector_add ...\n");
 	nvector *a = nvector_alloc(n);

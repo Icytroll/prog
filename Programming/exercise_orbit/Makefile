@@ -4,11 +4,8 @@ LDLIBS = $$(gsl-config --libs)
 .PHONEY:default clean
 default: logistic.data logistic.svg equatorial.data equatorial.svg
 
-equatorial.svg: equatorial.data Makefile
-	gnuplot -e "\
-	set terminal svg background 'white'; \
-	plot $< using (1/$2)*(sin($1)):(1/$2)*(cos($1)) with lines 'Normal circle'\
-	" > $@
+equatorial.svg: equatorial.gpi equatorial.data Makefile
+	gnuplot $< > $@
 
 logistic.svg: logistic.data Makefile
 	gnuplot -e "\

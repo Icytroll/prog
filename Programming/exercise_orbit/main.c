@@ -9,7 +9,7 @@ int main()
 	/* Integrate the ODE of the logistic function */
 
 	for(double x=0;x<=3;x+=0.05)
-		fprintf(stdout,"%g %g\n",x,mylogistic(x));
+		fprintf(stdout,"%g %g %g\n",x,mylogistic(x),1/(1+exp(-x)));
 	
 
 	/* Integrate the ODE of equatorial motion of a planet */

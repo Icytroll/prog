@@ -11,6 +11,7 @@ logistic.svg: logistic.data Makefile
 	gnuplot -e "\
 	set terminal svg background 'white'; \
 	plot '$<' using 1:2 with lines title 'mylogistic' \
+	, '$<' using 1:3 with lines linewidth 5 dashtype (10,20) title 'Analytic' \
 	" > $@
 
 logistic.data equatorial.data: main

@@ -5,10 +5,10 @@ double expecValue(double alpha);
 
 int main() {
 
-	/* Numerically integrate ln(x)/sqrt(x) from 0<=x<=1 */
+	/* Numerically integrate log(x)/sqrt(x) from 0<=x<=1 */
 
 	double result = logSqrt(0,1);
-	fprintf(stdout,"Integration result: %g\n",result);	
+	fprintf(stdout,"Integration result of log(x)/sqrt(x): %g\n",result);	
 	
 	/* Numerically integrate the expectation value E(alpha) of a Hamiltonian H */
 	

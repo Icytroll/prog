@@ -1,1 +1,1 @@
-Integration result: -4
+Integration result of log(x)/sqrt(x): -4

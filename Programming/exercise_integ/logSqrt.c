@@ -2,7 +2,7 @@
 #include<gsl/gsl_integration.h>
 #include<gsl/gsl_errno.h>
 
-double integrand (double x) {
+double integrand (double x, void* params) {
 	double f = log(x)/sqrt(x);
 	return f;
 }

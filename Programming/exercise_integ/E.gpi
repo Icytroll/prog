@@ -1,0 +1,7 @@
+set terminal svg background 'white' enhanced
+	set yrange [0:5]
+	set xlabel "{/Symbol a}"
+	set ylabel "E({/Symbol a})"
+	plot \
+		0.5 title 'E({/Symbol a}) = 0.5' \
+		, 'E.txt' using 1:2 with lines title 'Expectation value E({/Symbold a})' \

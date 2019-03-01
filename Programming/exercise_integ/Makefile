@@ -3,19 +3,12 @@ LDLIBS = $$(gsl-config --libs)
 
 default: logSqrt.txt E.txt E.svg
 
-E.svg: E.txt Makefile
-	gnuplot -e "\
-	set terminal svg background 'white' enhanced; \
-	set yrange [0:5]; \
-	set xlabel '{/Symbol a}'; \
-	set ylabel 'E({/Symbol a})'; \
-	plot \
-		0.5 title 'E({/Symbol a}) = 0.5' \
-		,'$<' using 1:2 with lines title 'Expectation value E({/Symbold a})' \
-	" > $@
+E.svg: E.gpi Makefile
+	gnuplot $< > $@
 
 logSqrt.txt E.txt: main
 	./$< 1> logSqrt.txt 2> E.txt
+	cat logSqrt.txt
 
 main: main.o logSqrt.o expecValue.o
 

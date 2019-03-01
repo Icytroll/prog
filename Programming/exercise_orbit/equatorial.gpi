@@ -6,6 +6,6 @@ set title font "Helvetica,14"
 set label "" at 0,0 point pointtype 2
 
 plot \
-	'equatorial.data' using (1/$2)*(sin($1)):(1/$2)*(cos($1)) with lines title 'Normal circle'\
-	, 'equatorial.data' using (1/$3)*(sin($1)):(1/$3)*(cos($1)) with lines title 'Ellipse'\
-	, 'equatorial.data' using(1/$4)*(sin($1)):(1/$4)*(cos($1)) with lines title 'With relativistic precision'\
+	'equatorial.data' using (1/$2)*(sin($1)):(1/$2)*(cos($1)) with lines lc rgb 'blue' title 'Normal circle'\
+	, 'equatorial.data' using (1/$3)*(sin($1)):(1/$3)*(cos($1)) with lines lc rgb 'red' title 'Ellipse'\
+	, 'equatorial.data' using(1/$4)*(sin($1)):(1/$4)*(cos($1)) with lines lc rgb 'black' title 'With relativistic precision'\

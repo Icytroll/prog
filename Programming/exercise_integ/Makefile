@@ -10,7 +10,7 @@ logSqrt.txt E.txt: main
 	./$< 1> logSqrt.txt 2> E.txt
 	cat logSqrt.txt
 
-main: main.o logSqrt.o expecValue.o
+main: main.o logSqrt.o E_numerical.o
 
 .PHONEY:clean
 clean:

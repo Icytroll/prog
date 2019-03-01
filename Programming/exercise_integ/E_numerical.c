@@ -15,7 +15,7 @@ double denominator (double x, void * params) {
 }
 
 
-double expecValue(double alpha){
+double E_numerical(double alpha){
 	
 	int limit=1000;
 	gsl_integration_workspace * wN;

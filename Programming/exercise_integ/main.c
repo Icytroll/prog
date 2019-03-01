@@ -1,7 +1,11 @@
 #include<stdio.h>
 #include<math.h>
 double logSqrt(double a, double b);
-double expecValue(double alpha);
+double E_numerical(double alpha);
+
+double E_analytical(double alpha) {
+	return ((sqrt(M_PI)*(alpha*alpha+1))/(4*pow(alpha,1.5)))/(sqrt(M_PI)/sqrt(alpha));
+}
 
 int main() {
 
@@ -13,7 +17,7 @@ int main() {
 	/* Numerically integrate the expectation value E(alpha) of a Hamiltonian H */
 	
 	for(double alpha=0.001;alpha<=5;alpha+=0.001)
-		fprintf(stderr,"%g %g\n",alpha,expecValue(alpha));	
+		fprintf(stderr,"%g %g %g\n",alpha,E_numerical(alpha),E_analytical(alpha));	
 	
 	return 0;
 }

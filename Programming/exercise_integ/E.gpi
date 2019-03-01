@@ -4,4 +4,5 @@ set terminal svg background 'white' enhanced
 	set ylabel "E({/Symbol a})"
 	plot \
 		0.5 title 'E({/Symbol a}) = 0.5' \
-		, 'E.txt' using 1:2 with lines title 'Expectation value E({/Symbold a})' \
+		, 'E.txt' using 1:2 with lines title 'Numerical E(a)' \
+		, 'E.txt' using 1:3 with lines linewidth 3 dashtype (10,20) title 'Analytical E(a)'

@@ -90,16 +90,16 @@ int main(int argc, char** argv) {
 
 	while (1+z!=1) {z/=2;}
 	z*=2;
-	printf("Machine epsilon, float, while:    %Lg\n",z);
+	printf("Machine epsilon, long double, while:    %Lg\n",z);
 
 	for (z=1;1+z!=1;z/=2) {
-		if (1+z/2==1) printf("Machine epsilon, float, for:      %Lg\n",z);
+		if (1+z/2==1) printf("Machine epsilon, long double, for:      %Lg\n",z);
 	}
 
 	z = 1;
 	do (z/=2); while (1+z!=1);
 	z*=2;
-	printf("Machine epsilon, float, do while: %Lg\n",z);
+	printf("Machine epsilon, long double, do while: %Lg\n",z);
 	
 	printf("LDBL_EPSILON =                    %Lg\n\n",LDBL_EPSILON);
 	

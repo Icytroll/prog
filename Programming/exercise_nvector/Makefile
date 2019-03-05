@@ -1,9 +1,16 @@
 CFLAGS = -Wall -std=gnu99
 LDLIBS = -lm
 
-.PHONEY: all clean
-all              : out.txt           ; cat $<
-out.txt          : main              ; ./$< > $@
-main             : main.o nvector.o double_equal.o  # built-in linking rule is used here
-main.o nvector.o : nvector.h         # built-in compiling rule is used here
-clean            :                   ; $(RM) main main.o nvector.o double_equal.o out.txt 
+.PHONEY: default clean
+default: out.txt
+	cat $<
+
+out.txt: main
+	./$< > $@
+
+main: main.o nvector.o double_equal.o
+
+main.o nvector.o: nvector.h
+
+clean:
+	$(RM) main main.o nvector.o double_equal.o out.txt 

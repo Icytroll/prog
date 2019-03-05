@@ -1,2 +1,4 @@
 Iterations = 1127
-flag = 0
+Rosenbrock flag = 0
+S-wave iterations with rmax = 8 : 13
+Lowest root of M(eps) = -0.499975

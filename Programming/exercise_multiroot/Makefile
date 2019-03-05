@@ -1,15 +1,18 @@
 CFLAGS = -Wall -std=gnu11 $$(gsl-config --cflags)
 LDLIBS = $$(gsl-config --libs)
 
-default: rosen.txt log.txt rosen.svg
+default: rosen.txt log.txt rosen.svg s_wave.svg
 
 rosen.svg: rosen.txt rosen.gpi
 	gnuplot rosen.gpi > $@
 
-log.txt rosen.txt: main
+s_wave.svg: sData.txt s_wave.gpi
+	gnuplot s_wave.gpi > $@
+
+log.txt rosen.txt sData.txt: main
 	./$< 2> log.txt 1> rosen.txt
 
-main: main.o rosen_extremum.o
+main: main.o rosen_extremum.o s_wave_root.o fe.o
 
 .PHONEY:clean
 clean:

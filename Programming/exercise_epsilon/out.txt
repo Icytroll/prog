@@ -18,9 +18,9 @@ Machine epsilon, double, for:      2.22045e-16
 Machine epsilon, double, do while: 2.22045e-16
 DBL_EPSILON =                      2.22045e-16
 
-Machine epsilon, float, while:    1.0842e-19
-Machine epsilon, float, for:      1.0842e-19
-Machine epsilon, float, do while: 1.0842e-19
+Machine epsilon, long double, while:    1.0842e-19
+Machine epsilon, long double, for:      1.0842e-19
+Machine epsilon, long double, do while: 1.0842e-19
 LDBL_EPSILON =                    1.0842e-19
 
 sum_up_float    = 15.4037

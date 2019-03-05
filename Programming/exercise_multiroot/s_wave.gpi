@@ -1,0 +1,10 @@
+set term svg background 'white'
+set tics out
+set xtics 2
+set mxtics 1
+plot \
+	 "sData.txt" index 0 using 1:2 with lines title "Rmax = 2" \
+	,"sData.txt" index 1 using 1:2 with lines title "Rmax = 4" \
+	,"sData.txt" index 2 using 1:2 with lines title "Rmax = 6" \
+	,"sData.txt" index 3 using 1:2 with lines title "Rmax = 8" \
+	,"sData.txt" index 4 using 1:2 with lines title "Rmax = 10"

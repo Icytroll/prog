@@ -24,10 +24,9 @@ out.cmd.txt: main-cmdline input.data.txt
 input.data.txt:
 	seq 0 0.2 5 | sed -e 's/,/./g' > $@
 
-plot.svg:
+plot.svg: Makefile
 	gnuplot plot.gpi
 
 .PHONEY:clean
 clean:
-	$(RM) main-stdio main-stdio.o test.io.out.txt main-cmdline main-cmdline.o test.cmd.out.txt ou.io.txt out.cmd.txt input.data.txt plot.svg
-
+	$(RM) main-stdio main-cmdline *.txt *.o *.svg

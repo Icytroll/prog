@@ -7,4 +7,4 @@ plot \
 	,"sData.txt" index 1 using 1:2 with lines title "Rmax = 4" \
 	,"sData.txt" index 2 using 1:2 with lines title "Rmax = 6" \
 	,"sData.txt" index 3 using 1:2 with lines title "Rmax = 8" \
-	,"sData.txt" index 4 using 1:2 with lines title "Rmax = 10"
+	,"sData.txt" index 3 using 1:3 with lines lc "red" lw 3 dashtype (10,20) title "analytical"

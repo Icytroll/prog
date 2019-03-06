@@ -4,12 +4,12 @@
 #define TYPE gsl_multiroot_fsolver_hybrids
 #define EPS 1e-12
 
-double fe(double eps, double rmax, int saveData);
+double fe(double eps, double rmax, FILE* stream);
 
 int master(const gsl_vector* x, void* params, gsl_vector* f) {
 	double rmax = *(double*)params;
 	double eps = gsl_vector_get(x,0);
-	double fval = fe(eps,rmax,0);
+	double fval = fe(eps,rmax,NULL);
 	gsl_vector_set(f,0,fval);
 
 	return GSL_SUCCESS;

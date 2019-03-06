@@ -6,8 +6,8 @@ default: rosen.txt log.txt rosen.svg s_wave.svg
 rosen.svg: rosen.txt rosen.gpi
 	gnuplot rosen.gpi > $@
 
-s_wave.svg: sData.txt s_wave.gpi
-	gnuplot s_wave.gpi > $@
+s_wave.svg: s_wave.gpi sData.txt
+	gnuplot $< > $@
 
 log.txt rosen.txt sData.txt: main
 	./$< 2> log.txt 1> rosen.txt

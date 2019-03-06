@@ -10,11 +10,12 @@ int s_wave_ode(double r, const double y[], double dydr[], void *params)
 	return GSL_SUCCESS;
 }
 
-double fe(double eps, double rmax, int saveData)
+double fe(double eps, double rmax, FILE* stream)
 {
 	double rmin = 1e-3;
 	if(rmax<rmin) return rmax-rmax*rmax;
-
+	
+	// define ode system
 	gsl_odeiv2_system sys;
 	sys.function = s_wave_ode;
 	sys.jacobian = NULL;
@@ -25,24 +26,29 @@ double fe(double eps, double rmax, int saveData)
 
 	double r = rmin;
 	double dr = (rmax-rmin)/100;
-	double ABS = 1e-12, EPS = 1e-12;
-	driver = gsl_odeiv2_driver_alloc_y_new(&sys, gsl_odeiv2_step_rkf45, dr, ABS, EPS);
+	double ABSEPS = 1e-12, RELEPS = 1e-12;
+	driver = gsl_odeiv2_driver_alloc_y_new(&sys, gsl_odeiv2_step_rkf45, dr, ABSEPS, RELEPS);
 
 	double y[] = {rmin-rmin*rmin,1-2*rmin};
 	
-	FILE * stream;
-	stream = fopen("sData.txt","a");
-
-	if(saveData) fprintf(stream,"# Rmax = %g\n",rmax);
-
-	for(double ri=r+dr;ri<=rmax;ri+=dr) {
-		gsl_odeiv2_driver_apply(driver, &r, ri, y);
-		if(saveData) fprintf(stream,"%g %g %g\n",ri,y[0],ri*exp(-ri));
-	}
+	// prepare to write data
 	
-	if(saveData) fprintf(stream,"\n");
-	fclose(stream);
+	if(stream!=NULL) fprintf(stream,"# Rmax = %g\n",rmax);
+	
+	// manually step the solution 
+	if(stream!=NULL){
+		for(double ri=r+dr;ri<=rmax;ri+=dr) {
+			gsl_odeiv2_driver_apply(driver, &r, ri, y);
+			fprintf(stream,"%g %g %g\n",r,y[0],r*exp(-r));
+		}
+		if(stream!=NULL) fprintf(stream,"\n\n");
+	}
 
+	r=rmin;
+	gsl_odeiv2_driver_apply(driver, &r, rmax, y);
+	
+	
+	// cleanup
 	gsl_odeiv2_driver_free(driver);
 
 	return y[0];

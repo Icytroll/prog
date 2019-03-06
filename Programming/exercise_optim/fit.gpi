@@ -1,0 +1,13 @@
+set term svg background 'white'
+set xlabel "t"
+set ylabel "f(t)"
+set title "Fit of data points"
+
+#A = system("tail -n fit.txt | awk '{print $2}'")
+#T = system("tail -n fit.txt | awk '{print $3}'")
+#B = system("tail -n fit.txt | awk '{print $4}'")
+title_fit = sprintf("f(t) = A*exp(-t/Y)+B")
+
+plot \
+	 "fit.txt" index 1 u 1:2 with lines title title_fit \
+	 ,"input.data" with errorbars title "Data points"

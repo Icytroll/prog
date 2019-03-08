@@ -3,10 +3,7 @@ set xlabel "t"
 set ylabel "f(t)"
 set title "Fit of data points"
 
-#A = system("tail -n fit.txt | awk '{print $2}'")
-#T = system("tail -n fit.txt | awk '{print $3}'")
-#B = system("tail -n fit.txt | awk '{print $4}'")
-title_fit = sprintf("f(t) = A*exp(-t/Y)+B")
+title_fit = sprintf("f(t) = 5.1301*exp(-t/2.7235)+1.084")
 
 plot \
 	 "fit.txt" index 1 u 1:2 with lines title title_fit \

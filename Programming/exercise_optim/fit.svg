@@ -125,10 +125,10 @@
 		<text><tspan font-family="Arial" >Fit of data points</tspan></text>
 	</g>
 </g>
-	<g id="gnuplot_plot_1" ><title>f(t) = A*exp(-t/Y)+B</title>
+	<g id="gnuplot_plot_1" ><title>f(t) = 5.1301*exp(-t/2.7235)+1.084</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(507.9,76.0)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="end">
-		<text><tspan font-family="Arial" >f(t) = A*exp(-t/Y)+B</tspan></text>
+		<text><tspan font-family="Arial" >f(t) = 5.1301*exp(-t/2.7235)+1.084</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">

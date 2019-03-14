@@ -9,7 +9,7 @@ Pi.svg: PiData.txt Makefile
 	set xlabel 'N'; \
 	plot '$<' index 0 using 1:2 with lines title 'Pthreads' \
 	, '$<' index 1 using 1:2 with lines title 'OpenMP' \
-	, 3.14159265359 title 'Pi'\
+	, 3.14159265359 lc 7 lw 2 title 'Pi'\
 	" > $@
 
 PiData.txt: main

@@ -54,8 +54,9 @@ double Pthreads(int N, int n){
 
 int main() {
 	
+	int Nmax = 1e7;
 	int n = 16; // threads
-	int Nmax = 1e3, dN = 1e1, N;
+	int dN = Nmax/200, N;
 
 	/* Pthreads */
 	
@@ -83,3 +84,5 @@ int main() {
 	
 	return 0;
 }
+
+

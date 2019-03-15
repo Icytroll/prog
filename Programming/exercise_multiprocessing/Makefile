@@ -23,7 +23,7 @@ Pi.svg: PiData.txt Makefile
 	" > $@
 
 PiData.txt: main
-	./$< 8 32 > $@
+	./$< 8 31 > $@
 
 .PHONEY:clean
 clean:

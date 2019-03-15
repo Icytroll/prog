@@ -3,7 +3,7 @@
 #include<gsl/gsl_errno.h>
 #include<math.h>
 #define TYPE gsl_multiroot_fsolver_hybrids
-#define EPS 1e-12
+#define EPS 1e-6
 
 int tanroot
 (const gsl_vector * x, void * params, gsl_vector * f)
@@ -16,6 +16,12 @@ int tanroot
 
 double myarctan (double x){
 	
+	// define starting point
+	double a0;
+	if(x>=M_PI) a0 = M_PI/2.01;
+	else if(x<=-M_PI) a0 = -M_PI/2.01;
+	else a0 = 0;
+
 	int n = 1;
 	gsl_multiroot_function F;
 	F.f      = tanroot;
@@ -24,20 +30,19 @@ double myarctan (double x){
 
 	gsl_multiroot_fsolver * S;
 	S = gsl_multiroot_fsolver_alloc(TYPE,n);
-
+	
 	gsl_vector* start = gsl_vector_alloc(n);
-	gsl_vector_set(start,0,0);
+	gsl_vector_set(start,0,a0);
 	gsl_multiroot_fsolver_set(S,&F,start);
 	
 	int iter = 0, flag;
 	
 	do{
-		
 		iter++;
 		gsl_multiroot_fsolver_iterate(S);
 		flag=gsl_multiroot_test_residual(S->f,EPS);
-
-	}while(flag==GSL_CONTINUE);
+	}
+	while(flag==GSL_CONTINUE);
 	
 	double a = gsl_vector_get(S->x,0);
 

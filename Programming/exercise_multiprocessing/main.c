@@ -56,7 +56,7 @@ int main() {
 	
 	int Nmax = 1e7;
 	int n = 16; // threads
-	int dN = Nmax/200, N;
+	int dN = Nmax/500, N;
 
 	/* Pthreads */
 	

@@ -67,7 +67,6 @@ int main(int argc, char** argv) {
 
 	/* OpenMP */
 	
-	int Ni_openMP=0;
 	for(int iscale=a;iscale<b;iscale++){
 		N = pow(2,iscale);
 	
@@ -84,13 +83,14 @@ int main(int argc, char** argv) {
 			throwDarts((void*)&(data[i]));
 		}
 		
-		int Ntot=0;
+
+		int Ntot=0,Ni_openMP=0;
 		for(int i=0;i<nthreads;i++){
 			Ni_openMP += data[i].sum;
 			Ntot += data[i].N;
 		}
 	
-		printf("%i %g\n",N,4.0*Ni_openMP/Ntot/2);
+		printf("%i %g\n",N,4.0*Ni_openMP/Ntot);
 	}
 	
 	return 0;

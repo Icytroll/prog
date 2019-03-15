@@ -7,13 +7,19 @@ Pi.svg: PiData.txt Makefile
 	gnuplot -e "\
 	set term svg background 'white'; \
 	set xlabel 'N'; \
-	plot '$<' index 0 using 1:2 with lines title 'Pthreads' \
-	, '$<' index 1 using 1:2 with lines title 'OpenMP' \
-	, 3.14159265359 lc 7 lw 2 title 'Pi'\
+	set log x;\
+	set log y;\
+	a=1;\
+	f(x)=a/sqrt(x);\
+	pi=4*atan(1);\
+	fit f(x) '$<' index 0 using 1:(abs((\$$2)-pi)) via a;\
+	plot '$<' index 0 using 1:(abs((\$$2)-pi)) with lines title 'Pthreads' \
+	, '$<' index 1 using 1:(abs((\$$2)-pi))  with lines title 'OpenMP' \
+	, f(x) with lines\
 	" > $@
 
 PiData.txt: main
-	./$< > $@
+	./$< 12 30 > $@
 
 .PHONEY:clean
 clean:

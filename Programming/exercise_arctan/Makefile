@@ -26,4 +26,4 @@ main: main.o myarctan.o
 
 .PHONEY:clean
 clean:
-	$(RM) main *.o
+	$(RM) main *.o *.txt *.pdf

@@ -1,0 +1,20 @@
+set term svg background 'white'
+set multiplot layout 2,1
+set xlabel 'x'
+set ylabel 'y'
+set grid xtics
+set grid ytics
+set title 'Linear Splines'
+set xrange [0:2*pi]
+plot 'data.txt' in 0 u 1:2 w l t 'Linear splines'\
+	,'data.txt' in 0 u 1:3 w l t 'sin(x)'
+
+set xlabel 'x'
+set ylabel 'y'
+set grid xtics
+set grid ytics
+set title 'Linear Splines - integration from 0 to x'
+set xrange [0:2*pi]
+set key bottom center
+plot 'data.txt' in 0 u 1:4 w l t 'Integration of linear splines'\
+	,'data.txt' in 0 u 1:5 w l t '1 - cos(x)'

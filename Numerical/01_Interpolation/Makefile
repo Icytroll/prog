@@ -23,4 +23,4 @@ main.o cspline.o: cspline.h
 
 .PHONEY:clean
 clean:
-	$(RM) main *.o *.txt *.svg
+	$(RM) main *.o *.txt Output/*.svg

@@ -49,20 +49,12 @@ cspline* cspline_alloc(int n, double *x, double *y) {
 		gsl_matrix_set( A , i , j+6 , -2 			      );
 		gsl_matrix_set( A , i , j+7 , -6*x[i-(3*(n-1)-2)] );
 	}
-	printf("x[n]=%g\n",x[n]);	
 	// set last 2 equations, 2nd derivatives at x[0] and x[n] = 0
 	gsl_matrix_set( A , 4*(n-1)-2 , 2         , 2	     );
 	gsl_matrix_set( A , 4*(n-1)-2 , 3         , 6*x[0]   );
 	gsl_matrix_set( A , 4*(n-1)-1 , 4*(n-1)-2 , 2	     );
 	gsl_matrix_set( A , 4*(n-1)-1 , 4*(n-1)-1 , 6*x[n-1] );
 	
-	for(int i=0;i<4*(n-1);i++) {
-		for(int j=0;j<4*(n-1);j++) {
-			printf("%g ",gsl_matrix_get(A,i,j));
-		}
-		printf("\n");
-	}
-
 	// solve linear system
 	gsl_linalg_HH_solve(A,b,X);
 	

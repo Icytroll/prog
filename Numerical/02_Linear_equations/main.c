@@ -33,9 +33,9 @@ int main() {
 
 /*----- Golub-Kahan-Lanczos bidiagonalization -----*/
 	
-	FILE * Cstream fopen("C.txt","w");
+	FILE * Cstream = fopen("C.txt","w");
 	
-	
+		
 	
 	fclose(Cstream);
 	

@@ -4,6 +4,6 @@ The repository is split into two parts:
 
     Programming exercises in C
     
-    Implementation of numerical methods in C (coming soon to a repository near you!)
+    Implementation of numerical methods in C
 
 - Jens S. K. Jensen / Icytroll

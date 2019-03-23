@@ -1,15 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<math.h>
-#include<time.h>
-#include"matrix.h"
-#include"vector.h"
 
 void A_decomp(FILE * Astream);
 void A_solve(FILE * Astream);
-
-//void qr_gs_inverse (const matrix* Q, const matrix* R, matrix* B);
-
+void B_inverse(FILE * Bstream);
 
 int main() {
 	
@@ -29,15 +23,18 @@ int main() {
 	
 	FILE * Bstream = fopen("B.txt","w");
 	
+	// Invert a random matrix by solving sets of linear equations
+	B_inverse(Bstream);
+	
 	fclose(Bstream);
 
 /*----- Golub-Kahan-Lanczos bidiagonalization -----*/
 	
-	FILE * Cstream = fopen("C.txt","w");
+	//FILE * Cstream = fopen("C.txt","w");
 	
 		
 	
-	fclose(Cstream);
+	//fclose(Cstream);
 	
 	return 0;	
 }

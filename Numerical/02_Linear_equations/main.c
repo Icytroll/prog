@@ -4,6 +4,7 @@
 void A_decomp(FILE * Astream);
 void A_solve(FILE * Astream);
 void B_inverse(FILE * Bstream);
+void C_bidiag(FILE * Cstream);
 
 int main() {
 	
@@ -30,11 +31,11 @@ int main() {
 
 /*----- Golub-Kahan-Lanczos bidiagonalization -----*/
 	
-	//FILE * Cstream = fopen("C.txt","w");
+	FILE * Cstream = fopen("C.txt","w");
 	
-		
+	C_bidiag(Cstream);	
 	
-	//fclose(Cstream);
+	fclose(Cstream);
 	
 	return 0;	
 }

@@ -14,6 +14,13 @@ void C_bidiag(FILE * Cstream) {
 	for(int i=0;i<n;i++)
 		detB *= matrix_get(B,i,i);
 	fprintf(Cstream,"Determinant of A = %g\n\n",detB);
-	*/
 	
+	
+	Ax = b
+	UBV'x = b
+	BV'x = U'b
+	V'x = y
+	By = U'b --> y
+	V'x = y --> x
+	*/
 }

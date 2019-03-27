@@ -18,13 +18,13 @@ void A_solve(FILE * Astream) {
 	vector* b = vector_alloc(n);
 	vector* x = vector_alloc(n);
 	
-	// Fill A and Q with the same random integers between 0 and 9.
+	// Fill A and Q with the same random numbers between 0 and 1.
 	// A stays as it is, while Q will be changed in qr_gs_decomp.
-	int rnd;
+	double rnd;
 	srand(time(NULL));
 	for(int i=0;i<n;i++) {
 		for(int j=0;j<n;j++) {
-			rnd = round(rand()/(double)RAND_MAX*9);	
+			rnd = rand()/(double)RAND_MAX;	
 			matrix_set(A,i,j,rnd);
 			matrix_set(Q,i,j,rnd);
 		}
@@ -32,7 +32,7 @@ void A_solve(FILE * Astream) {
 
 	// Fill out b
 	for(int i=0;i<n;i++)
-		vector_set(b,i,round(rand()/(double)RAND_MAX*9));
+		vector_set(b,i,rand()/(double)RAND_MAX);
 	
 	// Factorize A into Q and R, and solve Rx=QTb for x
 	qr_gs_decomp(Q,R);

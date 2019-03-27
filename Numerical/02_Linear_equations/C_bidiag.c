@@ -5,6 +5,7 @@
 #include"matrix.h"
 #include"vector.h"
 
+void bi_decomp(matrix* A, matrix* U, matrix* B, matrix* V);
 
 
 void C_bidiag(FILE * Cstream) {
@@ -15,12 +16,84 @@ void C_bidiag(FILE * Cstream) {
 		detB *= matrix_get(B,i,i);
 	fprintf(Cstream,"Determinant of A = %g\n\n",detB);
 	
-	
 	Ax = b
 	UBV'x = b
 	BV'x = U'b
 	V'x = y
 	By = U'b --> y
 	V'x = y --> x
+	
+	Ax = ei
+	UBV'x = ei
+	BV'x = U'ei
+	By = U'b --> y
+	V'x = y --> x
+	
+	*/
+
+	fprintf(Cstream,"Testing bidiagonalization ...\n\n");
+	
+	int n = 6, m = 6;
+	matrix* A = matrix_alloc(n,m);
+	matrix* U = matrix_alloc(n,m);
+	matrix* B = matrix_alloc(n,m);
+	matrix* V = matrix_alloc(n,m);
+	vector* b = vector_alloc(n);
+	vector* x = vector_alloc(n);
+	
+	// Initialize U,B and V to zero
+	for(int i=0;i<n;i++) {
+		for(int j=0;j<n;j++) {
+			matrix_set(U,i,j,0);
+			matrix_set(B,i,j,0);
+			matrix_set(V,i,j,0);
+		}
+	}
+
+	double rnd;
+	srand(time(NULL));
+	for(int i=0;i<n;i++) {
+		for(int j=i;j<m;j++) {
+			// Fill A symmetrically with random numbers from 0 to 1
+			rnd = rand()/(double)RAND_MAX;	
+			matrix_set(A,i,j,rnd);
+			matrix_set(A,j,i,rnd);
+		}
+		// Fill b with random numbers from 0 to 1
+		rnd = rand()/(double)RAND_MAX;	
+		vector_set(b,i,rnd);
+	}
+	
+	matrix_print(A,"A =",Cstream);
+	vector_print(b,"b =",Cstream);
+
+	bi_decomp(A,U,B,V);
+	matrix_print(U,"U =",Cstream);
+	matrix_print(B,"B =",Cstream);
+	matrix_print(V,"V =",Cstream);
+
+	matrix* VT = matrix_transpose(V);
+	printf("This is ok\n");
+	/*
+	matrix* UB = matrix_mult(U,B);
+	printf("This is not ok???\n");
+	matrix* UBVT = matrix_mult(UB,VT);
+	matrix_print(UBVT,"U*B*V' =",Cstream);
+	*/
+
+	/*
+	matrix* UBVT = matrix_mult(UB,VT);
+	matrix_print(UBVT,"U*B*V' =",Cstream);
+	*/
+	
+	
+	/*
+	bi_solve(U,B,V,x,b);
+	double detA = bi_det(B);
+
+	matrix* invA = matrix_alloc(n,m);
+
+	bi_inverse(U,B,V,invA);
+
 	*/
 }

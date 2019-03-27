@@ -56,7 +56,7 @@ void matrix_print(matrix* A, char* s, FILE* stream) {
 	int m = A->size2;
 	for(int i=0;i<n;i++) {
 		for(int j=0;j<m;j++) {
-			fprintf(stream,"%g ",matrix_get(A,i,j));
+			fprintf(stream,"%7.3f ",matrix_get(A,i,j));
 		}
 		fprintf(stream,"\n");
 	}
@@ -64,6 +64,6 @@ void matrix_print(matrix* A, char* s, FILE* stream) {
 }
 
 void matrix_free(matrix* A) {
-	free((*A).data);
+	free(A->data);
 	free(A);
 }

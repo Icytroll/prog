@@ -1,0 +1,11 @@
+set term svg background 'white'
+set xlabel 'n'
+set ylabel 'Time [s]'
+set title 'Time scaling of Jacobi cyclic sweeping'
+set log x
+set log y
+set grid ytics
+set grid xtics
+f(x) = x**3
+plot 'A_time.txt' u 1:2 w l title 'Jacobi cyclic sweep data'\
+	,f(x) w l title sprintf("F(x) = n^3")

@@ -3,9 +3,8 @@
 
 void matrix_print(gsl_matrix* A, char* s, FILE* stream);
 
-void jacobi_cyclic(gsl_matrix* V, gsl_matrix* D) {
-	
-	int iter = 0, maxiter = 100, n = D->size1, flag = 1;
+int jacobi_cyclic(gsl_matrix* V, gsl_matrix* D) {
+	int n_rot = 0, iter = 0, maxiter = 100, n = D->size1, flag = 1;
 	double phi,c,s,D_pp,D_pq,D_qq,D_pi,D_qi,V_ip,V_iq,dpp,dqq;
 	while (flag && iter<maxiter) {
 		iter++;
@@ -44,7 +43,9 @@ void jacobi_cyclic(gsl_matrix* V, gsl_matrix* D) {
 				}
 				gsl_matrix_set(D,p,q,0);
 				gsl_matrix_set(D,q,p,0);
+				n_rot++;
 			}
 		}
 	}
+	return n_rot;
 }

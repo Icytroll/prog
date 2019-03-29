@@ -37,8 +37,10 @@ void B_inverse(FILE * Bstream) {
 	qr_gs_decomp(Q,R);
 	qr_gs_inverse(Q,R,B);
 
-	matrix* AB = matrix_mult(A,B);
-	matrix* QR = matrix_mult(Q,R);
+	matrix* AB = matrix_alloc(n,n);
+	matrix_mult(A,B,AB);
+	matrix* QR = matrix_alloc(n,n);
+	matrix_mult(Q,R,QR);
 
 	matrix_print(A,"A =",Bstream);
 	matrix_print(Q,"Q =",Bstream);

@@ -7,7 +7,7 @@ matrix* matrix_alloc(int n, int m);
 void matrix_set(matrix* A, int i, int j, double x);
 double matrix_get(matrix* A, int i, int j);
 matrix* matrix_transpose(matrix* A);
-matrix* matrix_mult(matrix* A, matrix* B);
+void matrix_mult(matrix* A, matrix* B, matrix* C);
 void matrix_print(matrix* A, char* s, FILE* stream);
 void matrix_free(matrix* A);
 

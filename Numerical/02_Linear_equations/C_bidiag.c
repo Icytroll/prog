@@ -5,8 +5,11 @@
 #include"matrix.h"
 #include"vector.h"
 
+void mv_mult(matrix* A, vector* b, vector* c);
 void bi_decomp(matrix* A, matrix* U, matrix* B, matrix* V);
-
+double bi_det(matrix* B);
+void bi_solve(matrix* UT, matrix* B, matrix* V, vector* x, vector* b);
+void bi_inverse(matrix* UT, matrix* B, matrix* V, matrix* invA);
 
 void C_bidiag(FILE * Cstream) {
 	
@@ -33,10 +36,7 @@ void C_bidiag(FILE * Cstream) {
 
 	fprintf(Cstream,"Testing bidiagonalization ...\n\n");
 
-
-	printf("bidiag called...\n");
-	
-	int n = 4, m = 4;
+	int n = 6, m = 6;
 	matrix* A = matrix_alloc(n,m);
 	matrix* U = matrix_alloc(n,m);
 	matrix* B = matrix_alloc(n,m);
@@ -44,8 +44,6 @@ void C_bidiag(FILE * Cstream) {
 	vector* b = vector_alloc(n);
 	vector* x = vector_alloc(n);
 
-	printf("bidiag: all allocated ...\n");
-	
 	// Initialize U,B and V to zero
 	for(int i=0;i<n;i++) {
 		for(int j=0;j<n;j++) {
@@ -71,40 +69,57 @@ void C_bidiag(FILE * Cstream) {
 	
 	matrix_print(A,"A =",Cstream);
 	vector_print(b,"b =",Cstream);
-
-	printf("bidiag: calling bi_decomp...\n");
+	
+	// Decomposing A
 	bi_decomp(A,U,B,V);
-	printf("bidiag: bi_decomp exited...\n");
 	matrix_print(U,"U =",Cstream);
 	matrix_print(B,"B =",Cstream);
 	matrix_print(V,"V =",Cstream);
-	
-	matrix* UT = matrix_transpose(U);
-	printf("bidiag: calling transpose...\n");
 	matrix* VT = matrix_transpose(V);
-	printf("This is ok\n");
-	matrix* UTU = matrix_mult(UT,U);
-	matrix* VTV = matrix_mult(VT,V);
-	matrix_print(UT,"U' =",Cstream);
-	matrix_print(VT,"V' =",Cstream);
-	matrix_print(UTU,"U'*U =",Cstream);
-	matrix_print(VTV,"V'*V =",Cstream);
-	
-	printf("calling matrix_mult...\n");
-	matrix* UB = matrix_mult(U,B);
-	printf("after matrix_mult: This is not ok???\n");
-	
-	
-	matrix* UBVT = matrix_mult(UB,VT);
+	matrix* UT = matrix_transpose(U);
+	matrix* UB = matrix_alloc(n,n);
+	matrix_mult(U,B,UB);
+	matrix* UBVT = matrix_alloc(n,n);
+	matrix_mult(UB,VT,UBVT);
 	matrix_print(UBVT,"U*B*V' =",Cstream);
 	
-	/*
-	bi_solve(U,B,V,x,b);
-	double detA = bi_det(B);
+	// Solving linear system of equations
+	fprintf(Cstream,"\nSolving U*B*V'*x = b ...\n");
+	bi_solve(UT,B,V,x,b);
+	vector_print(x,"x =",Cstream);
+	vector* UBVTx = vector_alloc(n);
+	vector* Ax = vector_alloc(n);
+	mv_mult(A,x,Ax);
+	mv_mult(UBVT,x,UBVTx);
+	vector_print(Ax,"A*x =",Cstream);
+	vector_print(UBVTx,"U*B*V'*x =",Cstream);
+	
+	// Calculate determinant
+	fprintf(Cstream,"\nDeterminant of the matrix B: %g\n",-bi_det(B));
+	
 
+	// Calculate inverse of A
+	fprintf(Cstream,"\n\nInverting A via U, B and V ...\n");
 	matrix* invA = matrix_alloc(n,m);
-
-	bi_inverse(U,B,V,invA);
-
-	*/
+	bi_inverse(UT,B,V,invA);
+	matrix_print(invA,"A^-1 =",Cstream);
+	matrix* AinvA = matrix_alloc(n,n);
+	matrix_mult(A,invA,AinvA);
+	matrix_print(AinvA,"A*invA =",Cstream);
+	
+	// Clean up
+	matrix_free(A);
+	matrix_free(U);
+	matrix_free(B);
+	matrix_free(V);
+	vector_free(x);
+	vector_free(b);
+	matrix_free(VT);
+	matrix_free(UT);
+	matrix_free(UB);
+	matrix_free(UBVT);
+	vector_free(UBVTx);
+	vector_free(Ax);
+	matrix_free(invA);
+	matrix_free(AinvA);
 }

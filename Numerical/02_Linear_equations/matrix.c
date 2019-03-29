@@ -29,28 +29,18 @@ matrix* matrix_transpose(matrix* A) {
 }
 
 #include<assert.h>
-matrix* matrix_mult(matrix* A, matrix* B) {
+void matrix_mult(matrix* A, matrix* B, matrix* C) {
 	assert(A->size2==B->size1);
 	int n = A->size1, m = B->size2;
-	if(A->size2 == B->size1) {
-		int l = A->size2;
-		matrix* C = matrix_alloc(n,m);
-		double sum;
-		for(int i=0;i<n;i++) {
-			for(int j=0;j<m;j++) {
-				sum = 0;
-				for(int k=0;k<l;k++)
-					sum += matrix_get(A,i,k)*matrix_get(B,k,j);
-				printf("i=%i, j=%i\n",i,j);
-				matrix_set(C,i,j,sum);
-				printf("done\n");
-			}
+	int l = A->size2;
+	double sum;
+	for(int i=0;i<n;i++) {
+		for(int j=0;j<m;j++) {
+			sum = 0;
+			for(int k=0;k<l;k++)
+				sum += matrix_get(A,i,k)*matrix_get(B,k,j);
+			matrix_set(C,i,j,sum);
 		}
-		return C;
-	}
-	else {
-		printf("Matrix dimensions don't match! %d =/= %d\n",A->size2,B->size1);
-		return 0;
 	}
 }
 

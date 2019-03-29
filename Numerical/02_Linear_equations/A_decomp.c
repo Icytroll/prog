@@ -36,10 +36,12 @@ void A_decomp(FILE * Astream) {
 	matrix_print(R,"R =",Astream);
 	
 	matrix* QT = matrix_transpose(Q);
-	matrix* QT_Q = matrix_mult(QT,Q);
+	matrix* QT_Q = matrix_alloc(n,m);
+	matrix_mult(QT,Q,QT_Q);
 	
 	matrix_print(QT_Q,"QT*Q =",Astream);
-	matrix* QR = matrix_mult(Q,R);
+	matrix* QR = matrix_alloc(n,m);
+	matrix_mult(Q,R,QR);
 	matrix_print(QR,"Q*R =",Astream);
 	
 	// Free memory

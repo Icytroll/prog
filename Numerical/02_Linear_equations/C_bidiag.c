@@ -32,14 +32,19 @@ void C_bidiag(FILE * Cstream) {
 	*/
 
 	fprintf(Cstream,"Testing bidiagonalization ...\n\n");
+
+
+	printf("bidiag called...\n");
 	
-	int n = 6, m = 6;
+	int n = 4, m = 4;
 	matrix* A = matrix_alloc(n,m);
 	matrix* U = matrix_alloc(n,m);
 	matrix* B = matrix_alloc(n,m);
 	matrix* V = matrix_alloc(n,m);
 	vector* b = vector_alloc(n);
 	vector* x = vector_alloc(n);
+
+	printf("bidiag: all allocated ...\n");
 	
 	// Initialize U,B and V to zero
 	for(int i=0;i<n;i++) {
@@ -67,25 +72,31 @@ void C_bidiag(FILE * Cstream) {
 	matrix_print(A,"A =",Cstream);
 	vector_print(b,"b =",Cstream);
 
+	printf("bidiag: calling bi_decomp...\n");
 	bi_decomp(A,U,B,V);
+	printf("bidiag: bi_decomp exited...\n");
 	matrix_print(U,"U =",Cstream);
 	matrix_print(B,"B =",Cstream);
 	matrix_print(V,"V =",Cstream);
-
+	
+	matrix* UT = matrix_transpose(U);
+	printf("bidiag: calling transpose...\n");
 	matrix* VT = matrix_transpose(V);
 	printf("This is ok\n");
-	/*
-	matrix* UB = matrix_mult(U,B);
-	printf("This is not ok???\n");
-	matrix* UBVT = matrix_mult(UB,VT);
-	matrix_print(UBVT,"U*B*V' =",Cstream);
-	*/
-
-	/*
-	matrix* UBVT = matrix_mult(UB,VT);
-	matrix_print(UBVT,"U*B*V' =",Cstream);
-	*/
+	matrix* UTU = matrix_mult(UT,U);
+	matrix* VTV = matrix_mult(VT,V);
+	matrix_print(UT,"U' =",Cstream);
+	matrix_print(VT,"V' =",Cstream);
+	matrix_print(UTU,"U'*U =",Cstream);
+	matrix_print(VTV,"V'*V =",Cstream);
 	
+	printf("calling matrix_mult...\n");
+	matrix* UB = matrix_mult(U,B);
+	printf("after matrix_mult: This is not ok???\n");
+	
+	
+	matrix* UBVT = matrix_mult(UB,VT);
+	matrix_print(UBVT,"U*B*V' =",Cstream);
 	
 	/*
 	bi_solve(U,B,V,x,b);

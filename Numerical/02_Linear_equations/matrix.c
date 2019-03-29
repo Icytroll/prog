@@ -28,7 +28,9 @@ matrix* matrix_transpose(matrix* A) {
 	return AT;
 }
 
+#include<assert.h>
 matrix* matrix_mult(matrix* A, matrix* B) {
+	assert(A->size2==B->size1);
 	int n = A->size1, m = B->size2;
 	if(A->size2 == B->size1) {
 		int l = A->size2;
@@ -39,7 +41,9 @@ matrix* matrix_mult(matrix* A, matrix* B) {
 				sum = 0;
 				for(int k=0;k<l;k++)
 					sum += matrix_get(A,i,k)*matrix_get(B,k,j);
+				printf("i=%i, j=%i\n",i,j);
 				matrix_set(C,i,j,sum);
+				printf("done\n");
 			}
 		}
 		return C;

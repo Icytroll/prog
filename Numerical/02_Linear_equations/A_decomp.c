@@ -34,8 +34,10 @@ void A_decomp(FILE * Astream) {
 	fprintf(Astream,"After decomposition:\n");
 	matrix_print(Q,"Q =",Astream);
 	matrix_print(R,"R =",Astream);
+	
 	matrix* QT = matrix_transpose(Q);
 	matrix* QT_Q = matrix_mult(QT,Q);
+	
 	matrix_print(QT_Q,"QT*Q =",Astream);
 	matrix* QR = matrix_mult(Q,R);
 	matrix_print(QR,"Q*R =",Astream);

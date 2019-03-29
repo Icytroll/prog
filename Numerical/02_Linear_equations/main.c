@@ -25,7 +25,9 @@ int main() {
 	FILE * Bstream = fopen("B.txt","w");
 	
 	// Invert a random matrix by solving sets of linear equations
+	printf("calling B_inverse\n");
 	B_inverse(Bstream);
+	printf("B_inverse exited\n");
 	
 	fclose(Bstream);
 
@@ -33,7 +35,9 @@ int main() {
 	
 	FILE * Cstream = fopen("C.txt","w");
 	
+	printf("calling C_bidiag\n");
 	C_bidiag(Cstream);	
+	printf("C_bidiag exited\n");
 	
 	fclose(Cstream);
 	

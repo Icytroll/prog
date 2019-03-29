@@ -9,7 +9,7 @@ cyclic_sweep_time.svg: cyclic_sweep_time.gpi cyclic_sweep_time.txt
 out.txt cyclic_sweep_time.txt: main
 	./$< 1> out.txt
 
-main: main.o jacobi_cyclic.o jacobi_single_row.o matrix_print.o
+main: main.o jacobi_cyclic.o jacobi_single_row.o jacobi_classic.o matrix_print.o
 
 .PHONEY:clean
 clean:

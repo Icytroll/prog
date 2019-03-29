@@ -5,20 +5,24 @@
 void matrix_print(gsl_matrix* A, char* s, FILE* stream);
 
 int jacobi_classic(gsl_matrix* V, gsl_matrix* D) {
-	int n_rot = 0, iter = 0, maxiter = 100, n = D->size1, flag = 1;
+	int q, n_rot = 0, iter = 0, maxiter = 100, n = D->size1, flag = 1;
 	double phi,c,s,D_pp,D_pq,D_qq,D_pi,D_qi,V_ip,V_iq,dpp,dqq;
 	
-	gsl_vector* large_index gsl_vector_calloc(n);
-	for(int i=0;i<(n-1);i++)
-		for(int j=i+1;j<n;j++)
-			if(abs(gsl_matrix_get(D,i,j))>gsl_vector_get(large_index,i))
+	gsl_vector* large_index = gsl_vector_alloc(n-1);
+	gsl_vector_set_all(large_index,n-1);
+	for(int i=0;i<(n-1);i++) {
+		for(int j=i+1;j<n;j++) {
+			if(gsl_matrix_get(D,i,j)>gsl_matrix_get(D,i,gsl_vector_get(large_index,i))) {
 				gsl_vector_set(large_index,i,j);
-	
+			}
+		}
+	}
+
 	while (flag && iter<maxiter) {
 		iter++;
 		flag = 0;
 		for(int p=0;p<(n-1);p++) {
-			q = gsl_vector_get(large_index,i);
+			q = gsl_vector_get(large_index,p);
 			D_pp = gsl_matrix_get(D,p,p);
 			D_pq = gsl_matrix_get(D,p,q);
 			D_qq = gsl_matrix_get(D,q,q);
@@ -52,8 +56,15 @@ int jacobi_classic(gsl_matrix* V, gsl_matrix* D) {
 			gsl_matrix_set(D,p,q,0);
 			gsl_matrix_set(D,q,p,0);
 			n_rot++;
-
-
+		}
+		
+		gsl_vector_set_all(large_index,n-1);
+		for(int i=0;i<(n-1);i++) {
+			for(int j=i+1;j<n;j++) {
+				if(fabs(gsl_matrix_get(D,i,j))>fabs(gsl_matrix_get(D,i,gsl_vector_get(large_index,i)))) {
+					gsl_vector_set(large_index,i,j);
+				}
+			}
 		}
 	}
 	return n_rot;

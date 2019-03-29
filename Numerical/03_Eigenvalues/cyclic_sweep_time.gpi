@@ -7,5 +7,5 @@ set log y
 set grid ytics
 set grid xtics
 f(x) = x**3
-plot 'A_time.txt' u 1:2 w l title 'Jacobi cyclic sweep data'\
+plot 'cyclic_sweep_time.txt' u 1:2 w l title 'Jacobi cyclic sweep data'\
 	,f(x) w l title sprintf("F(x) = n^3")

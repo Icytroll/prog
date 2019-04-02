@@ -1,13 +1,17 @@
 CFLAGS = -Wall -std=gnu1x 
 LDLIBS = -lm
 
-default: A.svg
+default: Output/fit.svg Output/out.txt
 
-A.svg: A.gpi A.txt
+Output/fit.svg Output/out.txt: fit.svg out.txt
+	mv fit.svg Output/fit.svg
+	mv out.txt Output/out.txt
+
+fit.svg: fit.gpi fit.txt
 	gnuplot $< > $@
 
-A.txt: main
-	./$<
+out.txt fit.txt: main
+	./$< > out.txt
 
 main: main.o lsfit.o inverse.o qr_gs_inverse.o qr_gs_decomp.o qr_gs_solve.o mv_mult.o matrix.o vector.o matrix.h vector.h
 
@@ -16,4 +20,4 @@ lsfit.o qr_gs_solve.o mv_mult.o vector.o: vector.h
 
 .PHONEY:clean
 clean:
-	$(RM) main *.o *.txt
+	$(RM) main *.o *.txt Output/*.svg

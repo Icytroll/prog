@@ -5,7 +5,7 @@
 matrix* matrix_alloc(int n, int m) {
 	matrix* A=(matrix*)malloc(sizeof(matrix));
 	(*A).size1=n; (*A).size2=m;
-	(*A).data=(double*)malloc(n*m*sizeof(double));
+	(*A).data=(double*)calloc(n*m,sizeof(double));
 	return A;
 }
 

@@ -8,7 +8,7 @@ void mv_mult(int transposeA, matrix* A, vector* b, vector* c) {
     if (transposeA) {
 		n = A->size2;
 		m = A->size1;
-    	matrix* AT = matrix_alloc(m,n);
+    	matrix* AT = matrix_alloc(n,m);
 		matrix_transpose(A,AT);
 		for(int i=0;i<n;i++) {
         	sum = 0;

@@ -9,7 +9,7 @@ void inverse(matrix* A, matrix* invA);
 void lsfit(
 	int n, double funs(int,double),
 	double* x, double* y, double* dy,
-	vector* c, matrix* S, vector* dc)
+	vector* c, matrix* S)
 {
 	int m = c->size;
 	matrix* A = matrix_alloc(n,m);
@@ -26,12 +26,9 @@ void lsfit(
         vector_set(b,i,y[i]/dy[i]);
     }
 	
+
 	// Decompse A (Q) into Q and R
 	qr_gs_decomp(Q,R);
-	matrix* QR = matrix_alloc(n,m);
-	matrix_mult(Q,R,QR);
-	matrix_print(QR,"Q*R =",stdout);
-	matrix_print(A,"A =",stdout);
 
 	// Calculate coefficients c
 	qr_gs_solve(Q,R,b,c);
@@ -43,10 +40,7 @@ void lsfit(
     matrix_mult(RT,R,RTR);
     inverse(RTR,S);
 	
-	// Calculate uncertanties
-	for(int i=0;i<m;i++)
-		vector_set(dc,i,sqrt(matrix_get(S,i,i)));
-	
+	//matrix_print(A,"A =",stdout);
 	matrix_free(A);
 	matrix_free(Q);
 	matrix_free(R);

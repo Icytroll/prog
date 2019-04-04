@@ -61,6 +61,19 @@ void newton_with_jacobian(
 	vector* x,
 	double epsilon);
 
+void newton(
+	void f(vector* x, vector* fx),
+	vector* x,
+	double dx,
+	double epsilon);
+
+void newton_quadline(
+	void f(vector* x, vector* fx),
+	void df(vector* x, matrix* J),
+	vector* x,
+	double epsilon);
+
+
 int main() {
 	
 /*--- A Newton's method with analytic Jacobian and back-tracking linesearch ---*/
@@ -71,16 +84,9 @@ int main() {
 	
 
 	printf("Root finding using analytical jacobian:\n\n");
-	vector_set(x,0,8);
-	vector_set(x,1,5);
-	printf("2 solutions to the first system of equations:\n");
-	vector_print(x,"x0 =",stdout);
-	newton_with_jacobian(f1,df1,x,epsilon);
-	vector_print(x,"x_final =",stdout);
-	f1(x,fx);
-	vector_print(fx,"f(x_final) =",stdout);
-	vector_set(x,0,-2);
-	vector_set(x,1,5);
+	vector_set(x,0,2);
+	vector_set(x,1,10);
+	printf("1 of the solutions to the first system of equations:\n");
 	vector_print(x,"x0 =",stdout);
 	newton_with_jacobian(f1,df1,x,epsilon);
 	vector_print(x,"x_final =",stdout);
@@ -89,7 +95,7 @@ int main() {
 	
 	vector_set(x,0,2);
 	vector_set(x,1,1);
-	printf("1 minimum of the Rosenbrock valley:\n");
+	printf("Minimum of the Rosenbrock valley:\n");
 	vector_print(x,"x0 =",stdout);
 	newton_with_jacobian(f2,df2,x,epsilon);
 	vector_print(x,"x_final =",stdout);
@@ -97,54 +103,79 @@ int main() {
 	vector_print(fx,"f(x_final) =",stdout);
 	
 	vector_set(x,0,5);
-	vector_set(x,1,-5);
-	printf("4 minimums of the Himmelblau function:\n");
-	vector_print(x,"x0 =",stdout);
-	newton_with_jacobian(f3,df3,x,epsilon);
-	vector_print(x,"x_final =",stdout);
-	f3(x,fx);
-	vector_print(fx,"f(x_final) =",stdout);
-	vector_set(x,0,5);
 	vector_set(x,1,5);
-	vector_print(x,"x0 =",stdout);
-	newton_with_jacobian(f3,df3,x,epsilon);
-	vector_print(x,"x_final =",stdout);
-	f3(x,fx);
-	vector_print(fx,"f(x_final) =",stdout);
-	vector_set(x,0,-5);
-	vector_set(x,1,5);
-	vector_print(x,"x0 =",stdout);
-	newton_with_jacobian(f3,df3,x,epsilon);
-	vector_print(x,"x_final =",stdout);
-	f3(x,fx);
-	vector_print(fx,"f(x_final) =",stdout);
-	vector_set(x,0,-5);
-	vector_set(x,1,-5);
+	printf("1 of the minimum of the Himmelblau function:\n");
 	vector_print(x,"x0 =",stdout);
 	newton_with_jacobian(f3,df3,x,epsilon);
 	vector_print(x,"x_final =",stdout);
 	f3(x,fx);
 	vector_print(fx,"f(x_final) =",stdout);
 	
+/*--- B Newton's method with numerical Jacobian and back-tracking linesearch ---*/
+	
+	double dx = 1e-8;
+	printf("Root finding using numerical jacobian\n\n");
+	
+	vector_set(x,0,2);
+	vector_set(x,1,10);
+	printf("1 of the solutions to the first system of equations:\n");
+	vector_print(x,"x0 =",stdout);
+	newton(f1,x,dx,epsilon);
+	vector_print(x,"x_final =",stdout);
+	f1(x,fx);
+	vector_print(fx,"f(x_final) =",stdout);
+	
+	vector_set(x,0,2);
+	vector_set(x,1,1);
+	vector_print(x,"x0 =",stdout);
+	printf("Minimum of the Rosenbrock valley:\n");
+	newton(f2,x,dx,epsilon);
+	vector_print(x,"x_final =",stdout);
+	f2(x,fx);
+	vector_print(fx,"f(x_final) =",stdout);
+	
+	vector_set(x,0,5);
+	vector_set(x,1,5);
+	printf("1 of the minimum of the Himmelblau function:\n");
+	vector_print(x,"x0 =",stdout);
+	newton(f3,x,dx,epsilon);
+	vector_print(x,"x_final =",stdout);
+	f3(x,fx);
+	vector_print(fx,"f(x_final) =",stdout);
+	
+/*--- C Newton's method with refined linesearch ---*/
+	
+	printf("Root finding using refined linesearch\n\n");
+	
+	vector_set(x,0,2);
+	vector_set(x,1,10);
+	printf("1 of the solutions to the first system of equations:\n");
+	vector_print(x,"x0 =",stdout);
+	newton_quadline(f1,df1,x,epsilon);
+	vector_print(x,"x_final =",stdout);
+	f1(x,fx);
+	vector_print(fx,"f(x_final) =",stdout);
+	
+	vector_set(x,0,2);
+	vector_set(x,1,1);
+	vector_print(x,"x0 =",stdout);
+	printf("Minimum of the Rosenbrock valley:\n");
+	newton_quadline(f2,df2,x,epsilon);
+	vector_print(x,"x_final =",stdout);
+	f2(x,fx);
+	vector_print(fx,"f(x_final) =",stdout);
+	
+	vector_set(x,0,5);
+	vector_set(x,1,5);
+	printf("1 of the minimum of the Himmelblau function:\n");
+	vector_print(x,"x0 =",stdout);
+	newton_quadline(f3,df3,x,epsilon);
+	vector_print(x,"x_final =",stdout);
+	f3(x,fx);
+	vector_print(fx,"f(x_final) =",stdout);
+	
+	
 	vector_free(x);
 	vector_free(fx);
-/*--- B Newton's method with numerical Jacobian and back-tracking linesearch ---*/
-/*	
-	double dx = 1e-6;
-	vector_set(x,0,0);
-	vector_set(x,1,0);
-	newton(f1,x,dx,epsilon);
-	vector_print(x,"Solution to the first system of equations without Jacobian:",stdout);
-	vector_set(x,0,0);
-	vector_set(x,1,0);
-	newton(f2,x,dx,epsilon);
-	vector_print(x,"Minimum of the Rosenbrock valley without Jacobian:",stdout);
-	vector_set(x,0,0);
-	vector_set(x,1,0);
-	newton(f3,x,dx,epsilon);
-	vector_print(x,"Minimum of the Himmelblau function without Jacobian:",stdout);
-*/	
-/*--- C Newton's method with refined linesearch ---*/
-
 	return 0;
 }

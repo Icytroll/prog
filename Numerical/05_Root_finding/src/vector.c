@@ -15,6 +15,11 @@ void vector_set(vector* b, int i, double x){
 	(*b).data[i] = x;
 }
 
+void vector_set_all(vector* b, double x){
+	int n = b->size;
+	for(int i=0;i<n;i++) vector_set(b,i,x);
+}
+
 double vector_get(vector* b, int i) {
 	return (*b).data[i];
 }

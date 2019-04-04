@@ -6,6 +6,7 @@ typedef struct {int size; double *data;} vector;
 
 vector* vector_alloc(int n);
 void vector_set(vector* b, int i, double x);
+void vector_set_all(vector* b, double x);
 double vector_get(vector* b, int i);
 double norm(vector* b);
 void vector_mult_all(vector* b, double x);

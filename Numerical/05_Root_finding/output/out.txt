@@ -1,38 +1,25 @@
 Root finding using analytical jacobian:
 
-2 solutions to the first system of equations:
+1 of the solutions to the first system of equations:
 x0 =
-  8.0000000000 
-  5.0000000000 
+  2.0000000000 
+ 10.0000000000 
 
-Solution found after 11 iterations.
+Solution found after 51 iterations and 205 functions calls.
 x_final =
-  9.1061467358 
   0.0000109816 
+  9.1061467378 
 
 f(x_final) =
- -0.0000000001 
+ -0.0000000000 
   0.0000000000 
 
-x0 =
- -2.0000000000 
-  5.0000000000 
-
-Solution found after 15 iterations.
-x_final =
-  0.0000109816 
-  9.1061424947 
-
-f(x_final) =
- -0.0000000836 
-  0.0000000005 
-
-1 minimum of the Rosenbrock valley:
+Minimum of the Rosenbrock valley:
 x0 =
   2.0000000000 
   1.0000000000 
 
-Solution found after 168 iterations.
+Solution found after 168 iterations and 1240 functions calls.
 x_final =
   1.0000000006 
   1.0000000011 
@@ -41,25 +28,12 @@ f(x_final) =
   0.0000000479 
  -0.0000000234 
 
-4 minimums of the Himmelblau function:
-x0 =
-  5.0000000000 
- -5.0000000000 
-
-Solution found after 7 iterations.
-x_final =
-  3.5844283403 
- -1.8481265270 
-
-f(x_final) =
-  0.0000000000 
- -0.0000000000 
-
+1 of the minimum of the Himmelblau function:
 x0 =
   5.0000000000 
   5.0000000000 
 
-Solution found after 7 iterations.
+Solution found after 7 iterations and 15 functions calls.
 x_final =
   3.0000000000 
   2.0000000000 
@@ -68,29 +42,91 @@ f(x_final) =
   0.0000000000 
   0.0000000000 
 
+Root finding using numerical jacobian
+
+1 of the solutions to the first system of equations:
 x0 =
- -5.0000000000 
+  2.0000000000 
+ 10.0000000000 
+
+Solution found after 53 iterations and 640 functions calls.
+x_final =
+  0.0000109816 
+  9.1061467476 
+
+f(x_final) =
+  0.0000000011 
+ -0.0000000000 
+
+x0 =
+  2.0000000000 
+  1.0000000000 
+
+Minimum of the Rosenbrock valley:
+Solution found after 169 iterations and 2600 functions calls.
+x_final =
+  1.0000000006 
+  1.0000000110 
+
+f(x_final) =
+ -0.0000039529 
+  0.0000019770 
+
+1 of the minimum of the Himmelblau function:
+x0 =
+  5.0000000000 
   5.0000000000 
 
-Solution found after 6 iterations.
+Solution found after 7 iterations and 71 functions calls.
 x_final =
- -2.8051180870 
-  3.1313125183 
+  3.0000000000 
+  2.0000000100 
+
+f(x_final) =
+  0.0000002000 
+  0.0000003400 
+
+Root finding using refined linesearch
+
+1 of the solutions to the first system of equations:
+x0 =
+  2.0000000000 
+ 10.0000000000 
+
+Solution found after 18 iterations and 41 functions calls.
+x_final =
+  0.0000109816 
+  9.1061378376 
+
+f(x_final) =
+ -0.0000001764 
+  0.0000000010 
+
+x0 =
+  2.0000000000 
+  1.0000000000 
+
+Minimum of the Rosenbrock valley:
+Solution found after 5 iterations and 12 functions calls.
+x_final =
+  1.0000000000 
+  1.0000000000 
 
 f(x_final) =
  -0.0000000000 
   0.0000000000 
 
+1 of the minimum of the Himmelblau function:
 x0 =
- -5.0000000000 
- -5.0000000000 
+  5.0000000000 
+  5.0000000000 
 
-Solution found after 5 iterations.
+Solution found after 7 iterations and 15 functions calls.
 x_final =
- -3.7793102535 
- -3.2831859916 
+  3.0000000000 
+  2.0000000000 
 
 f(x_final) =
- -0.0000000006 
- -0.0000000272 
+  0.0000000000 
+  0.0000000000 
 

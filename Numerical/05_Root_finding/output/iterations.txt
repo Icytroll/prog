@@ -1,0 +1,25 @@
+ITERATIONS, FUNCTION CALLS:
+
+(System of equations)
+(Rosenbrock Valley)
+(Himmelblau function)
+
+Newton with analytic jacobian:
+        30        121
+       169       1242
+         7         15
+
+Newton with numerical jacobian:
+        31        377
+       169       2600
+         8         87
+
+GSL rootfinder (only iterations):
+       189
+       370
+        17
+
+Newton with refined linesearch:
+        32         70
+         5         12
+         7         15

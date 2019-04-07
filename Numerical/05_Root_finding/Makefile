@@ -1,7 +1,7 @@
 HDRDIR = ./hdr
 CC     = gcc
-CFLAGS = -Wall -std=gnu1x -I$(HDRDIR)
-LDLIBS = -lm
+CFLAGS = -Wall -std=gnu1x -I$(HDRDIR) $$(gsl-config --cflags)
+LDLIBS = $$(gsl-config --libs)
 
 SRCDIR = ./src
 OBJDIR = ./obj
@@ -10,13 +10,14 @@ SRCS := $(shell find $(SRCDIR) -name *.c)
 OBJS := $(SRCS:%:=$(OBJDIR)/%.o)
 HDRS := $(shell find $(HDRDIR) -name *.h)
 
-default: output/out.txt
+default: output/log.txt output/iterations.txt
 	
-output/out.txt: out.txt
-	mv out.txt output/out.txt
+output/log.txt output/iterations.txt: log.txt iterations.txt
+	mv log.txt output/log.txt
+	mv iterations.txt output/iterations.txt
 
-out.txt: main
-	./$< > $@
+log.txt iterations.txt: main
+	./$< 1> log.txt 2> iterations.txt
 
 main: $(OBJS)
 	$(CC) $(CFLAGS) $(HDRS) -o main $(OBJS) $(LDLIBS)

@@ -5,12 +5,14 @@
 void qr_gs_decomp(matrix* Q, matrix* R);
 void qr_gs_solve(matrix* Q, matrix* R, vector* b, vector* x);
 
-void numeric_jacobian(void f(vector* x, vector* fx),
-					  matrix* J,
-					  vector* fx,
-					  vector* x,
-					  double dx,
-					  int* fcptr) {
+void numeric_jacobian(
+	void f(vector* x, vector* fx),
+	matrix* J,
+	vector* fx,
+	vector* x,
+	double dx,
+	int* fcptr) {
+
 	int	n = x->size;
 	double fp,fm;
 	for(int i=0;i<n;i++) {
@@ -68,7 +70,7 @@ void newton(void f(vector* x, vector* fx),
 		f(x,fx); (*fcptr)++;
 		iter++;
 	}
-	printf("%d %d\n",iter,*fcptr);
+	fprintf(stderr,"%10d %10d\n",iter,*fcptr);
 
 	vector_free(fx);
 	matrix_free(J);

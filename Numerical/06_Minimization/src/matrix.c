@@ -17,11 +17,28 @@ double matrix_get(matrix* A, int i, int j) {
 	return (*A).data[i+j*(*A).size1];
 }
 
+void matrix_add(matrix* A, matrix* B, matrix* C) {
+	int n = A->size1, m = A->size2;
+	for(int i=0;i<n;i++)
+		for(int j=0;j<m;j++)
+			matrix_set(C,i,j,matrix_get(A,i,j)+matrix_get(B,i,j));
+}
+
 void matrix_transpose(matrix* A, matrix* AT) {
 	int n = A->size2, m = A->size1;
 	for(int i=0;i<n;i++) {
 		for(int j=0;j<m;j++) {
 			matrix_set(AT,i,j,matrix_get(A,j,i));
+		}
+	}
+}
+
+void matrix_set_identity(matrix* A) {
+	int n = A->size1;
+	for(int i=0;i<n;i++) {
+		for(int j=0;j<n;j++) {
+			if (i==j) matrix_set(A,i,j,1);
+			else matrix_set(A,i,j,0);
 		}
 	}
 }

@@ -1,0 +1,9 @@
+set term svg background 'white'
+set xlabel 't'
+set ylabel 'f(t)'
+set grid xtics
+set grid ytics
+set yrange [0:6]
+set title 'Least-squares fit using Broyden''s update with numerical gradient'
+plot 'src/fit_input.data' u 1:2:3 w errorbars title 'Input data' \
+	,'fit_data.txt' u 1:2 w l title 'f(t) = A*exp(t/T)+B'

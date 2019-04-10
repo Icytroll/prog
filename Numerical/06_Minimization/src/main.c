@@ -2,8 +2,6 @@
 #include<stdlib.h>
 #include<math.h>
 #include<float.h>
-#include<gsl/gsl_matrix.h>
-#include<gsl/gsl_vector.h>
 #include"matrix.h"
 #include"vector.h"
 
@@ -61,6 +59,22 @@ void set_dfH2 (vector* x, vector* df, matrix* H) {
 	matrix_set(H,1,1,12*x2*x2 + 4*x1 - 26);
 }
 
+// Fitting master function
+double F(vector* x) {
+	double A = vector_get(x,0);
+	double T = vector_get(x,1);
+	double B = vector_get(x,2);
+
+	double t[] = {0.23,1.29,2.35,3.41,4.47,5.53,6.59,7.65,8.71,9.77};
+	double y[] = {4.64,3.38,3.01,2.55,2.29,1.67,1.59,1.69,1.38,1.46};
+	double e[] = {0.42,0.37,0.34,0.31,0.29,0.27,0.26,0.25,0.24,0.24};
+	int N = sizeof(t)/sizeof(t[0]);
+	
+	double sum = 0;
+	for(int i=0;i<N;i++) sum += pow(A*exp(t[i]/T)+B - y[i],2)/(e[i]*e[i]);
+	return sum;
+}
+
 // MINIMIZATION FUNCTIONS
 
 void newton(
@@ -73,6 +87,12 @@ void broyden(
 	double f(vector* x),
 	void set_df(vector* x, vector* df),
 	vector* x,
+	double epsilon);
+
+void broyden_numerical(
+	double f(vector* x),
+	vector* x,
+	double dx,
 	double epsilon);
 
 /*--- MAIN PROGRAM ---*/
@@ -109,20 +129,17 @@ int main() {
 	vector_print(x,"x_final =",stdout);
 	fprintf(stdout,"f(x_final) = %g\n",f2(x));
 	
-	// B - Broyden's update with analytical gradient
+	// B1 - Broyden's update with analytical gradient
 	
 	fprintf(stderr,"\nBroyden's update with analytical gradient:\n");
-	
-	double dx = sqrt(DBL_EPSILON);
 
-	printf("Minimization using Broyden's update.\n\n");
+	printf("Minimization using Broyden's update, analytical gradient.\n\n");
 	
 	vector_set(x,0,2);
 	vector_set(x,1,1);
 	printf("Minimum of the Rosenbrock valley:\n");
 	vector_print(x,"x0 =",stdout);
 	broyden(f1,set_df1,x,epsilon);
-	vector_print(x,"x_final =",stdout);
 	vector_print(x,"x_final =",stdout);
 	fprintf(stdout,"f(x_final) = %g\n",f1(x));
 	
@@ -133,6 +150,56 @@ int main() {
 	broyden(f2,set_df2,x,epsilon);
 	vector_print(x,"x_final =",stdout);
 	fprintf(stdout,"f(x_final) = %g\n",f2(x));
+	
+	// B2 - Broyden's update with numerical gradient
+	
+	fprintf(stderr,"\nBroyden's update with numerical gradient:\n");
+	
+	double dx = sqrt(DBL_EPSILON);
+
+	printf("Minimization using Broyden's update, numerical gradient.\n\n");
+	
+	vector_set(x,0,2);
+	vector_set(x,1,1);
+	printf("Minimum of the Rosenbrock valley:\n");
+	vector_print(x,"x0 =",stdout);
+	broyden_numerical(f1,x,dx,epsilon);
+	vector_print(x,"x_final =",stdout);
+	fprintf(stdout,"f(x_final) = %g\n",f1(x));
+	
+	vector_set(x,0,2.5);
+	vector_set(x,1,1.5);
+	printf("1 of the minimum of the Himmelblau function:\n");
+	vector_print(x,"x0 =",stdout);
+	broyden_numerical(f2,x,dx,epsilon);
+	vector_print(x,"x_final =",stdout);
+	fprintf(stdout,"f(x_final) = %g\n",f2(x));
+	
+	// B3 - Non-linear least-squares fitting problem
+	
+	fprintf(stderr,"\nBroyden's update with numerical gradient, fitting problem:\n");
+	
+	n = 3;
+	vector* x_fit = vector_alloc(n);
+	
+	vector_set(x_fit,0,5);
+	vector_set(x_fit,1,-1);
+	vector_set(x_fit,2,1);
+	printf("Fitting parameters of least squares problem:\n");
+	vector_print(x_fit,"x0 =",stdout);
+	broyden_numerical(F,x_fit,dx,epsilon);
+	vector_print(x_fit,"x_final =",stdout);
+	fprintf(stdout,"f(x_final) = %g\n",F(x_fit));
+	
+	double A = vector_get(x_fit,0);
+	double T = vector_get(x_fit,1);
+	double B = vector_get(x_fit,2);
+	double t0 = 0, tf = 10, dt = (tf-t0)/100;
+	FILE* fit_file = fopen("fit_data.txt","w");
+	for(double t=t0;t<=tf;t+=dt)
+		fprintf(fit_file,"%g %g\n",t,A*exp(t/T)+B);
+	
+	
 	
 	// C - Newton's method with refined linesearch
 	/*

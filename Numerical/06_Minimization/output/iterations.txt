@@ -10,3 +10,10 @@ Newton with analytic gradient and hessian:
 Broyden's update with analytical gradient:
         58
         67
+
+Broyden's update with numerical gradient:
+        57
+        27
+
+Broyden's update with numerical gradient, fitting problem:
+        44

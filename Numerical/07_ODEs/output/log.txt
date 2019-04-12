@@ -1,0 +1,78 @@
+Minimization using analytical gradient and hessian:
+
+Minimum of the Rosenbrock valley:
+x0 =
+  2.0000000000 
+  1.0000000000 
+
+x_final =
+  1.0000000000 
+  1.0000000000 
+
+f(x_final) = 5.94727e-29
+1 of the minimum of the Himmelblau function:
+x0 =
+  2.5000000000 
+  1.5000000000 
+
+x_final =
+  3.0000000000 
+  2.0000000000 
+
+f(x_final) = 2.8399e-29
+Minimization using Broyden's update, analytical gradient.
+
+Minimum of the Rosenbrock valley:
+x0 =
+  2.0000000000 
+  1.0000000000 
+
+x_final =
+  1.0000000000 
+  1.0000000000 
+
+f(x_final) = 3.07705e-28
+1 of the minimum of the Himmelblau function:
+x0 =
+  2.5000000000 
+  1.5000000000 
+
+x_final =
+  3.0000000000 
+  2.0000000000 
+
+f(x_final) = 4.59243e-23
+Minimization using Broyden's update, numerical gradient.
+
+Minimum of the Rosenbrock valley:
+x0 =
+  2.0000000000 
+  1.0000000000 
+
+x_final =
+  1.0000000000 
+  1.0000000000 
+
+f(x_final) = 2.16358e-23
+1 of the minimum of the Himmelblau function:
+x0 =
+  2.5000000000 
+  1.5000000000 
+
+x_final =
+  2.9999732607 
+  2.0000112876 
+
+f(x_final) = 2.2584e-08
+Fitting parameters of least squares problem:
+x0 =
+  5.0000000000 
+ -1.0000000000 
+  1.0000000000 
+
+x_final =
+  3.5570248760 
+ -3.2053955294 
+  1.2319477746 
+
+f(x_final) = 2.06796

@@ -1,0 +1,19 @@
+ITERATIONS:
+
+(Rosenbrock Valley)
+(Himmelblau function)
+
+Newton with analytic gradient and hessian:
+        15
+         6
+
+Broyden's update with analytical gradient:
+        58
+        67
+
+Broyden's update with numerical gradient:
+        57
+        27
+
+Broyden's update with numerical gradient, fitting problem:
+        44

@@ -5,7 +5,7 @@
 #include"matrix.h"
 #include"vector.h"
 
-/*--- FUNCTION DECLARATIONS ---*/
+/*--- TEST FUNCTIONS ---*/
 
 // Equation of motion
 void EoM(double t, vector* y, vector* dydt, void* params) {
@@ -18,12 +18,14 @@ void EoM(double t, vector* y, vector* dydt, void* params) {
 	vector_set(dydt,1,-c/m*y2 - k/m*y1);
 }
 
+/*--- FUNCTION DECLARATIONS ---*/
+
 // Runge-Kutta 45 stepper
 void rkstep45(
 	double t,
 	double h,
 	vector* yt,
-	void f(double t, vector* y, vector* dydt),
+	void f(double t, vector* y, vector* dydt, void* params),
 	vector* yth,
 	vector* err
 )
@@ -37,9 +39,9 @@ void driver(
 	double acc, double eps,
 	void stepper(
 		double t, double h, vector* yt,
-		void f(double t, vector* y, vector* dydt),
+		void f(double t, vector* y, vector* dydt, void* params),
 		vector* yth, vector* err),
-	void f(double t, vector* y, vector* dydt)
+	void f(double t, vector* y, vector* dydt, void* params)
 )
 
 /*--- MAIN PROGRAM ---*/

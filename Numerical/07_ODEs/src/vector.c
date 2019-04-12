@@ -38,6 +38,15 @@ double vector_inner(vector* a, vector* b) {
 	return sum;
 }
 
+double vector_absmax(vector* a) {
+	int n = a->size;
+	double max = fabs(vector_get(a,0));
+	for(int i=1;i<n;i++) {
+		if(fabs(vector_get(a,i))>max) max = fabs(vector_get(a,i));
+	}
+	return max;
+}
+
 void vector_mult_all(vector* b, double x) {
 	int n = b->size;
 	for(int i=0;i<n;i++) vector_set(b,i,vector_get(b,i)*x);

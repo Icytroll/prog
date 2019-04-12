@@ -1,78 +1,40 @@
-Minimization using analytical gradient and hessian:
+Mass-damper-spring, m = 1, c = 0.1, k = 1:
+y0 =
+  1.0000000000 
+  0.0000000000 
 
-Minimum of the Rosenbrock valley:
-x0 =
+Iterations: 912
+yf =
+  0.1720494977 
+ -0.3336265466 
+
+Mass-damper-spring, m = 1, c = 1, k = 1:
+y0 =
+  1.0000000000 
+  0.0000000000 
+
+Iterations: 250
+yf =
+  0.0000014482 
+  0.0000327345 
+
+Mass-damper-spring, m = 1, c = 10, k = 1:
+y0 =
+  1.0000000000 
+  0.0000000000 
+
+Iterations: 120
+yf =
+  0.1295417732 
+ -0.0130863766 
+
+Van der Pol equation, mu = 1:
+y0 =
   2.0000000000 
-  1.0000000000 
+  0.0000000000 
 
-x_final =
-  1.0000000000 
-  1.0000000000 
+Iterations: 2176
+yf =
+  2.0078252869 
+ -0.0546317053 
 
-f(x_final) = 5.94727e-29
-1 of the minimum of the Himmelblau function:
-x0 =
-  2.5000000000 
-  1.5000000000 
-
-x_final =
-  3.0000000000 
-  2.0000000000 
-
-f(x_final) = 2.8399e-29
-Minimization using Broyden's update, analytical gradient.
-
-Minimum of the Rosenbrock valley:
-x0 =
-  2.0000000000 
-  1.0000000000 
-
-x_final =
-  1.0000000000 
-  1.0000000000 
-
-f(x_final) = 3.07705e-28
-1 of the minimum of the Himmelblau function:
-x0 =
-  2.5000000000 
-  1.5000000000 
-
-x_final =
-  3.0000000000 
-  2.0000000000 
-
-f(x_final) = 4.59243e-23
-Minimization using Broyden's update, numerical gradient.
-
-Minimum of the Rosenbrock valley:
-x0 =
-  2.0000000000 
-  1.0000000000 
-
-x_final =
-  1.0000000000 
-  1.0000000000 
-
-f(x_final) = 2.16358e-23
-1 of the minimum of the Himmelblau function:
-x0 =
-  2.5000000000 
-  1.5000000000 
-
-x_final =
-  2.9999732607 
-  2.0000112876 
-
-f(x_final) = 2.2584e-08
-Fitting parameters of least squares problem:
-x0 =
-  5.0000000000 
- -1.0000000000 
-  1.0000000000 
-
-x_final =
-  3.5570248760 
- -3.2053955294 
-  1.2319477746 
-
-f(x_final) = 2.06796

@@ -10,6 +10,7 @@ void vector_set_all(vector* b, double x);
 double vector_get(vector* b, int i);
 double norm(vector* b);
 double vector_inner(vector* a, vector* b);
+double vector_absmax(vector* a);
 void vector_mult_all(vector* b, double x);
 void vector_add(vector* a, vector* b, vector* c);
 void vector_sub(vector* a, vector* b, vector* c);

@@ -1,15 +1,22 @@
-Integrating sqrt(x) from 0 to 1:
-(acc = eps = 1e-6)
+Integrating sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...
 Q = 0.666667, function calls = 276
 
-Integrating 1/sqrt(x) from 0 to 1:
-(acc = eps = 1e-6)
+Integrating 1/sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...
 Q = 2, function calls = 123900
 
-Integrating ln(x)/sqrt(x) from 0 to 1:
-(acc = eps = 1e-6)
+Integrating ln(x)/sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...
 Q = -4, function calls = 302996
 
-Integrating 4*sqrt(1-(1-x)^2) from 0 to 1:
-(acc = eps = DBL_EPSILON)
+Integrating 4*sqrt(1-(1-x)^2) from 0 to 1 (acc = eps = DBL_EPSILON) ...
 Q = 3.141592653589793, function calls = 4456104
+
+==============================================
+Using Clenshaw-Curtis variable transformation:
+
+Integrating 1/sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...
+Q = 2, function calls = 352
+
+Integrating ln(x)/sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...
+Encountered a divergence point, returning subdivision Q = 0.
+Continuing ...
+Q = -4, function calls = 1968

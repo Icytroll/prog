@@ -27,7 +27,6 @@ void plainMC(
 	
 	double V = 1;
 	for(int i=0;i<n;i++) V *= vector_get(b,i)-vector_get(a,i);
-	printf("V = %g\n",V);
 	
 	double sum = 0, sum2 = 0, fx;
 	for(int i=0;i<N;i++) {

@@ -79,46 +79,65 @@ int main() {
 	
 	// A - Plain Monte Carlo integration
 	
-	int n = 3;
+	int n = 3, N;
 	vector* a = vector_alloc(n);
 	vector* b = vector_alloc(n);
-
 	double res, err;
 	double* result = &res;
 	double* error = &err;
 	
-	vector_set_all(a,0);
-	vector_set(b,0,1);
-	vector_set(b,1,2);
-	vector_set(b,2,3);
-	double f1(vector* x) {return 1;};
-	int N = 10000;
-	plainMC(f1,a,b,N,result,error);
-	printf("1 integral:\nResult = %g, error = %g\n",*result,*error);
 	
+	printf("Performing plain Monte Carlo integration:\nN = 10000000\n");
 	vector_set_all(a,0);
-	vector_set(b,0,1);
-	vector_set(b,1,1);
-	vector_set(b,2,1);
-	double fx(vector* x) {return vector_get(x,0)*vector_get(x,1)*vector_get(x,2);};
-	N = 10000000;
-	plainMC(fx,a,b,N,result,error);
-	printf("x integral:\nResult = %g, error = %g\n",*result,*error);
-	
+	vector_set_all(b,1);
 	double fx2(vector* x) {return pow(vector_get(x,0),2)*pow(vector_get(x,1),2)*pow(vector_get(x,2),2);};
-	N = 10000000;
+	N = 1000000;
 	plainMC(fx2,a,b,N,result,error);
-	printf("x^2 integral:\nResult = %g, error = %g\n",*result,*error);
-	/*
-	vector_set_all(a,0);
+	printf("\nx^2*y^2*z^2 from x = 0:1, y = 0:1, z = 0:1\nShould be: 1/27 = 0.037037\nResult = %g, error = %g\n",*result,*error);	
+
+	vector_set(b,0,M_PI);
+	vector_set(b,1,1);
+	vector_set(b,2,M_PI);
+	double fxyz(vector* x) {
+		double x1 = vector_get(x,0);
+		double x2 = vector_get(x,1);
+		double x3 = vector_get(x,2);
+		return sin(x1)*sin(x1)+x2*sin(x3);
+	};
+	N = 1000000;
+	plainMC(fxyz,a,b,N,result,error);
+	printf("\nsin(x)^2+y*sin(z) from x = 0:pi, y = 0:1, z = 0:pi\nShould be: 0.5*pi*(2+pi) = 8.07639\nResult = %g, error = %g\n",*result,*error);
+	
 	vector_set_all(b,M_PI);
-	double fcos(vector* x) {return 1./(1-cos(vector_get(x,0))*cos(vector_get(x,1))*cos(vector_get(x,2)));};
-	int N = 10000;
+	double fcos(vector* x) {
+		double x1 = vector_get(x,0);
+		double x2 = vector_get(x,1);
+		double x3 = vector_get(x,2);
+		return 1/(1-cos(x1)*cos(x2)*cos(x3))/M_PI/M_PI/M_PI;
+	};
+	N = 1000000;
 	plainMC(fcos,a,b,N,result,error);
-	printf("Difficult singular integral:\nResult = %g, error = %g\n",*result,*error);
-	*/
+	printf("\n1/((1-cos(x)*cos(y)*cos(z))*pi^3) from x = 0:pi, y = 0:pi, z = 0:pi\nShould be: G(1/4)^4/(4*pi^3) = 1.39320392\nResult = %g, error = %g\n",*result,*error);
+	
 	// B - Behaviour of error
 	
+	int Nlower = 10, Nupper = 100000000;
+	for(int i=Nlower;i<=Nupper;i*=Nlower) {
+		vector_set_all(a,0);
+		vector_set_all(b,1);
+		plainMC(fx2,a,b,i,result,error);
+		fprintf(stderr,"%d %g",i,*error);
+		
+		vector_set(b,0,M_PI);
+		vector_set(b,2,M_PI);
+		plainMC(fxyz,a,b,i,result,error);
+		fprintf(stderr," %g",*error);
+		
+		vector_set(b,1,M_PI);
+		plainMC(fcos,a,b,i,result,error);
+		fprintf(stderr," %g\n",*error);
+	}
+		
 	// C - Stratified sampling
 	
 	

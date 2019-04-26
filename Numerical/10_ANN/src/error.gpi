@@ -1,0 +1,20 @@
+set term svg background 'white'
+set xlabel 'N'
+set ylabel 'error'
+set title 'Error scaling of plain Monte Carlo integration for different functions'
+set log x
+set log y
+set grid ytics
+set grid xtics
+f1(x) = a*1/sqrt(x)
+fit f1(x) "error.data" u 1:2 via a
+f2(x) = b*1/sqrt(x)
+fit f2(x) "error.data" u 1:3 via b
+f3(x) = c*1/sqrt(x)
+fit f3(x) "error.data" u 1:4 via c
+plot 'error.data' u 1:2 w l t 'f1 = x^2*y^2*z^2'\
+	,'error.data' u 1:3 w l t 'f2 = sin(x)^2+y*sin(z)'\
+	,'error.data' u 1:4 w l t 'f3 = 1/((1-cos(x)*cos(y)*cos(z))*pi^3)'\
+	,f1(x) w l t "f1 O(1/sqrt(N))"\
+	,f2(x) w l t "f2 O(1/sqrt(N))"\
+	,f3(x) w l t "f3 O(1/sqrt(N))"

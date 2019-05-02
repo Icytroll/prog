@@ -4,6 +4,8 @@
 #include<math.h>
 #include<unistd.h>
 #include<assert.h>
+#include<gsl/gsl_integration.h>
+#include<gsl/gsl_errno.h>
 
 /*--- FUNCTION DECLARATIONS ---*/
 
@@ -60,6 +62,8 @@ double CC_init(double f(double x), double a, double b, double acc, double eps) {
 	return CC_recur(f,f2,f3,a,b,A,B,acc,eps,nrec);
 }
 
+double gsl_integ(double f(double x, void* params), double a, double b, double acc, double eps);
+
 /*--- MAIN PROGRAM ---*/
 
 int main() {
@@ -107,7 +111,24 @@ int main() {
 	Q = CC_init(f3,a,b,acc,eps);
 	printf("Q = %g, function calls = %d\n",Q,calls);
 	
+	// use library functions from GSL
+	printf("\n==============================================\n");
+	printf("Using GSL qags integrator:\n");
 	
+	calls = 0, acc = 1e-6, eps = 1e-6;
+	double gsl_f2(double x, void* params) {calls++; return 1/sqrt(x);}
+	printf("\nIntegrating 1/sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...\n");
+	Q = gsl_integ(gsl_f2,a,b,acc,eps);
+	printf("Q = %g, function calls = %d\n",Q,calls);
+	
+	calls = 0;
+	double gsl_f3(double x, void* params) {calls++; return log(x)/sqrt(x);}
+	printf("\nIntegrating ln(x)/sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...\n");
+	Q = gsl_integ(gsl_f3,a,b,acc,eps);
+	printf("Q = %g, function calls = %d\n",Q,calls);
+
+
+
 	// C - Infinite limits
 	
 	

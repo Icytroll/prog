@@ -1,7 +1,7 @@
 HDRDIR = ./hdr
 CC     = gcc
-CFLAGS = -Wall -std=gnu1x -I$(HDRDIR)
-LDLIBS = -lm
+CFLAGS = -Wall -std=gnu1x -I$(HDRDIR) $$(gsl-config --cflags)
+LDLIBS = $$(gsl-config --libs)
 
 SRCDIR = ./src
 OBJDIR = ./obj

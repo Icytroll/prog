@@ -17,5 +17,5 @@ void vector_sub(vector* a, vector* b, vector* c);
 void vector_print(vector* b, char* s, FILE *stream);
 void vector_free(vector* b);
 
-#define HAVE_vector_H
+#define HAVE_VECTOR_H
 #endif

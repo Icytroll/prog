@@ -32,8 +32,10 @@ void broyden_numerical(
 	double dx,
 	double epsilon) {
 	
-	int n = x->size,maxiter = 100000,iter;
+	int n = x->size,maxiter = 1000,iter;
 	double alpha = 1e-4, lambda, f_x, f_trial;
+	
+	// Initialize vectors and matrices
 	vector* df = vector_alloc(n);
 	vector* df_trial = vector_alloc(n);
 	vector* y = vector_alloc(n);
@@ -44,6 +46,7 @@ void broyden_numerical(
 	vector* Dx = vector_alloc(n);
 	vector* x_trial = vector_alloc(n);
 	
+	// 
 	vector_set_all(Dx,1);
 	matrix_set_identity(B);
 	
@@ -82,9 +85,9 @@ void broyden_numerical(
 		printf("lambda = %g\n",lambda);
 		vector_print(x,"x =",stdout);
 		vector_print(df,"df =",stdout);
-		usleep(1000000);
+		//usleep(1000000);
 	}
-	printf("%10d\n",iter);
+	printf("Iterations = %10d\n",iter);
 
 	vector_free(df);
 	vector_free(df_trial);

@@ -10,20 +10,13 @@ SRCS := $(shell find $(SRCDIR) -name *.c)
 OBJS := $(SRCS:%:=$(OBJDIR)/%.o)
 HDRS := $(shell find $(HDRDIR) -name *.h)
 
-default: output/out.txt output/error.svg
+default: output/out.txt
 	
 output/out.txt: out.txt
 	mv out.txt output/out.txt
 
-output/error.svg: error.svg
-	mv error.svg output/error.svg
-	mv error.data output/error.data
-
-error.svg: src/error.gpi error.data
-	gnuplot $< > $@
-
-out.txt error.data: main
-	./$< 1> out.txt 2> error.data
+out.txt: main
+	./$< > $@
 
 main: $(OBJS)
 	$(CC) $(CFLAGS) $(HDRS) -o main $(OBJS) $(LDLIBS)

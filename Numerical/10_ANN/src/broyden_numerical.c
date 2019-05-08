@@ -32,10 +32,10 @@ void broyden_numerical(
 	double dx,
 	double epsilon) {
 	
-	int n = x->size,maxiter = 1000,iter;
+	int n = x->size,maxiter = 10000,iter;
 	double alpha = 1e-4, lambda, f_x, f_trial;
 	
-	// Initialize vectors and matrices
+	// Declare vectors and matrices
 	vector* df = vector_alloc(n);
 	vector* df_trial = vector_alloc(n);
 	vector* y = vector_alloc(n);
@@ -46,19 +46,18 @@ void broyden_numerical(
 	vector* Dx = vector_alloc(n);
 	vector* x_trial = vector_alloc(n);
 	
-	// 
+	// Initialize step Dx, inverse Hessian B and gradient df
 	vector_set_all(Dx,1);
 	matrix_set_identity(B);
-	
 	numerical_gradient(f,df,x,dx);
-	vector_print(x,"x =",stdout);
-	vector_print(df,"df =",stdout);
+	
 	iter = 0;
 	while(norm(df) > epsilon && iter<maxiter && norm(Dx)>dx) {
+		// Get step size
 		vector_mult_all(df,-1);
 		mv_mult(0,B,df,Dx);
 		vector_mult_all(df,-1);
-		
+		// Check if we need to decrease the step size using the Armijo condition
 		lambda = 1;
 		f_x = f(x);
 		vector_add(x,Dx,x_trial);
@@ -69,7 +68,9 @@ void broyden_numerical(
 			vector_add(x,Dx,x_trial);
 			f_trial = f(x_trial);
 		}
+		// If the step is bad, reset the inverse Hessian
 		if (lambda == 1.0/pow(2,14)) matrix_set_identity(B);
+		// Otherwise update the inverse Hessian
 		else {
 			numerical_gradient(f,df_trial,x_trial,dx);
 			vector_sub(df_trial,df,y);
@@ -79,16 +80,14 @@ void broyden_numerical(
 			vector_outer(u,Dx,dB);
 			matrix_add(B,dB,B);
 		}
+		// Update the step and get gradient for next iteration
 		vector_add(x,Dx,x);
 		numerical_gradient(f,df,x,dx);
 		iter++;
-		printf("lambda = %g\n",lambda);
-		vector_print(x,"x =",stdout);
-		vector_print(df,"df =",stdout);
-		//usleep(1000000);
 	}
-	printf("Iterations = %10d\n",iter);
+	printf("Iterations = %d\n",iter);
 
+	// clean up
 	vector_free(df);
 	vector_free(df_trial);
 	vector_free(y);

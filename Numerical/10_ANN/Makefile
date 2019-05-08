@@ -10,13 +10,20 @@ SRCS := $(shell find $(SRCDIR) -name *.c)
 OBJS := $(SRCS:%:=$(OBJDIR)/%.o)
 HDRS := $(shell find $(HDRDIR) -name *.h)
 
-default: output/out.txt
-	
-output/out.txt: out.txt
-	mv out.txt output/out.txt
+default: output/1Dplot.svg output/log.txt
 
-out.txt: main
-	./$< > $@
+output/log.txt: log.txt
+	mv log.txt output/log.txt
+
+output/1Dplot.svg: 1Dplot.svg
+	mv 1Dplot.svg output/1Dplot.svg
+	mv 1Ddata.txt output/1Ddata.txt
+
+1Dplot.svg: src/1Dplot.gpi 1Ddata.txt
+	gnuplot $< > $@
+
+log.txt 1Ddata.txt: main
+	./$< 1> log.txt 2> 1Ddata.txt
 
 main: $(OBJS)
 	$(CC) $(CFLAGS) $(HDRS) -o main $(OBJS) $(LDLIBS)

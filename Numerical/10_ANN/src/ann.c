@@ -7,10 +7,14 @@
 
 void broyden_numerical(double f(vector* x), vector* x, double dx, double epsilon);
 
-ann* ann_alloc(int number_of_hidden_neurons, double(*activation_function)(double)) {
+ann* ann_alloc(
+	int number_of_hidden_neurons,
+	double(*f)(double),
+	double(*df)(double)) {
 	ann* network = (ann*)malloc(sizeof(ann));
 	network->n = number_of_hidden_neurons;
-	network->f = activation_function;
+	network->f = f;
+	network->df = df;
 	vector* data = vector_alloc(3*number_of_hidden_neurons);
 	network->data = data;
 	return network;
@@ -24,6 +28,18 @@ double ann_feed_forward(ann* network, double x) {
 		bi = vector_get(network->data,i*3+1);
 		wi = vector_get(network->data,i*3+2);
 		sum += network->f((x-ai)/bi)*wi;
+	}
+	return sum;
+}
+
+double ann_deriv(ann* network, double x) {
+	int n = network->n;
+	double sum = 0, ai, bi ,wi;
+	for(int i=0;i<n;i++) {
+		ai = vector_get(network->data,i*3);
+		bi = vector_get(network->data,i*3+1);
+		wi = vector_get(network->data,i*3+2);
+		sum += network->df((x-ai)/bi)*wi/bi;
 	}
 	return sum;
 }

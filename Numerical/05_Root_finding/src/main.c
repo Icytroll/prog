@@ -92,8 +92,8 @@ int main() {
 	f2(x,fx);
 	vector_print(fx,"f(x_final) =",stdout);
 	
-	vector_set(x,0,5);
-	vector_set(x,1,5);
+	vector_set(x,0,2.5);
+	vector_set(x,1,1.5);
 	printf("1 of the minimum of the Himmelblau function:\n");
 	vector_print(x,"x0 =",stdout);
 	newton_with_jacobian(f3,df3,x,epsilon);
@@ -131,8 +131,8 @@ int main() {
 	vector_print(fx,"f(x_final) =",stdout);
 	
 	
-	vector_set(x,0,5);
-	vector_set(x,1,5);
+	vector_set(x,0,2.5);
+	vector_set(x,1,1.5);
 	printf("1 of the minimum of the Himmelblau function:\n");
 	vector_print(x,"x0 =",stdout);
 	newton(f3,x,dx,epsilon);
@@ -150,8 +150,8 @@ int main() {
 	gsl_vector_set(x_gsl,1,1);
 	gsl_rootfinder(f2_gsl,df2_gsl,fdf2_gsl,x_gsl,epsilon);
 	
-	gsl_vector_set(x_gsl,0,5);
-	gsl_vector_set(x_gsl,1,5);
+	gsl_vector_set(x_gsl,0,2.5);
+	gsl_vector_set(x_gsl,1,1.5);
 	gsl_rootfinder(f3_gsl,df3_gsl,fdf3_gsl,x_gsl,epsilon);
 	
 
@@ -179,8 +179,8 @@ int main() {
 	f2(x,fx);
 	vector_print(fx,"f(x_final) =",stdout);
 	
-	vector_set(x,0,5);
-	vector_set(x,1,5);
+	vector_set(x,0,2.5);
+	vector_set(x,1,1.5);
 	printf("1 of the minimum of the Himmelblau function:\n");
 	vector_print(x,"x0 =",stdout);
 	newton_quadline(f3,df3,x,epsilon);

@@ -7,19 +7,19 @@ ITERATIONS, FUNCTION CALLS:
 Newton with analytic jacobian:
         30        121
        169       1242
-         7         15
+         5         12
 
 Newton with numerical jacobian:
         31        377
        169       2600
-         8         87
+         6         68
 
 GSL rootfinder (only iterations):
        189
        370
-        17
+        11
 
 Newton with refined linesearch:
         32         70
          5         12
-         7         15
+         6         14

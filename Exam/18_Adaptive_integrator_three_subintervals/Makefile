@@ -10,16 +10,16 @@ SRCS := $(shell find $(SRCDIR) -name *.c)
 OBJS := $(SRCS:%:=$(OBJDIR)/%.o)
 HDRS := $(shell find $(HDRDIR) -name *.h)
 
-default: output/out.txt output/subdivisions.webm
+default: output/out.txt output/subdivisions.avi
 	
 output/out.txt: out.txt
 	mv out.txt output/out.txt
 
-output/subdivisions.webm: subdivisions.webm
-	mv subdivisions.webm output/subdivisions.webm
+output/subdivisions.avi: subdivisions.avi
+	mv subdivisions.avi output/subdivisions.avi
 	mv subdivisions.txt output/subdivisions.txt
 
-subdivisions.webm: $(SRCDIR)/subdivisions.gpi subdivisions.txt
+subdivisions.avi: $(SRCDIR)/subdivisions.gpi subdivisions.txt
 	gnuplot $<
 
 out.txt subdivisions.txt: main
@@ -38,4 +38,4 @@ show_files:
 
 .PHONEY:clean
 clean:
-	$(RM) main $(OJBDIR)/*.o output/*.txt output/*.svg output/*.webm
+	$(RM) main $(OJBDIR)/*.o output/*.txt output/*.svg output/*.avi

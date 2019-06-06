@@ -28,4 +28,3 @@ system(CMD)
 
 # Clear directory
 system('rm *.png')
-system('rm *.avi')

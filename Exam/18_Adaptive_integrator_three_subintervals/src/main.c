@@ -11,12 +11,6 @@ Jens S. K. Jensen - student number: 201209587
 Exam question -> mod(87,23) = 18:
 	Adaptive integrator with subdivision into three subintervals.
 
-1D adaptive integrator using 3 uniform subdivisions and the following points:
-x_i = 1/6, 3/6, 5/6
-w_i = 3/8, 2/8, 3/8\n");
-For each subdivision the points x_i of the current subdivision will be the new midpoints, meaning a subdivision at the first point x = 1/6 will have the new points:
-x_i = 1/18, 3/18, 5/18
-meaning we only reuse 1 point per subdivision. We're using an open integration scheme to avoid singularities at the integration limits.
 
 */
 
@@ -51,8 +45,21 @@ double adapt_init(double f(double x), double a, double b, double acc, double eps
 
 int main() {
 	
+	printf("\nPractical Programming and Numerical Methods\n");
+	printf("Name: Jens S. K. Jensen\n");
+	printf("Student number: 201209587\n");
+	printf("Exercise: mod(87,23) = 18 -> Adaptive integrator with subdivision into three subintervals.\n\n");
+	printf("We'll be using the following points and weights:\n");
+	printf("	x_i = 1/6, 3/6, 5/6\n");
+	printf("	w_i = 3/8, 2/8, 3/8\n");
+	printf("For each subdivision the points x_i of the current subdivision will be the new midpoints, meaning a subdivision at the first point x = 1/6 will have the new points:\n");
+	printf("	x_i = 1/18, 3/18, 5/18\n");
+	printf("meaning we only reuse 1 point per subdivision. We're using an open integration scheme to avoid singularities at the integration limits.\n\n");
+		
 	// Test a few trial functions
 	
+	printf("===========================================\n\n");	
+	printf("Testing adaptive integrator on a couple of functions ...\n\n");
 	printf("I = exact solution\n");
 	printf("Q = numerical approximation\n");
 	

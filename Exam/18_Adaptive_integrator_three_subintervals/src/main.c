@@ -23,26 +23,27 @@ meaning we only reuse 1 point per subdivision. We're using an open integration s
 
 /* -----=====¤¤¤¤¤ FUNCTION DECLARATIONS ¤¤¤¤¤=====----- */
 
-double adapt_recur(double f(double x), double f2, double a, double b, double acc, double eps, int nrec) {
+double adapt_recur(double f(double x), double f2, double a, double b, double acc, double eps, int nrec, int plot) {
 	assert(nrec < 100000); // stop if we're going too deep in a single subdivision
 	assert(~isinf(f2));    // stop if a sample point is on top of a singularity
 	double dx = b-a;
 	double f1 = f(a+1./6*dx), f3 = f(a+5./6*dx);
 	double Q = (3*f1+2*f2+3*f3)/8.*dx, q = (f1+f2+f3)/3.*dx;
 	double tol = acc+eps*fabs(Q), error = fabs(Q-q);
+	if (plot) fprintf(stderr,"%g %g %g %g\n%g %g %g %g\n\n",a,0.,b,0.,a,f(a),b,f(b)); // used to plot subdivisions
 	if (error < tol) return Q;
 	else {
-		double Q1 = adapt_recur(f,f1, a         ,a+1.*dx/3 ,acc/sqrt(2),eps,nrec+1);
-		double Q2 = adapt_recur(f,f2, a+1.*dx/3 ,a+2.*dx/3 ,acc/sqrt(2),eps,nrec+1);
-		double Q3 = adapt_recur(f,f3, a+2.*dx/3 ,b         ,acc/sqrt(2),eps,nrec+1);
+		double Q1 = adapt_recur(f,f1, a         ,a+1.*dx/3 ,acc/sqrt(2),eps,nrec+1,plot);
+		double Q2 = adapt_recur(f,f2, a+1.*dx/3 ,a+2.*dx/3 ,acc/sqrt(2),eps,nrec+1,plot);
+		double Q3 = adapt_recur(f,f3, a+2.*dx/3 ,b         ,acc/sqrt(2),eps,nrec+1,plot);
 		return Q1+Q2+Q3;
 	}
 }
 
-double adapt_init(double f(double x), double a, double b, double acc, double eps) {
+double adapt_init(double f(double x), double a, double b, double acc, double eps, int plot) {
 	int nrec = 0;
 	double f2 = f(a+3./6*(b-a));
-	return adapt_recur(f,f2,a,b,acc,eps,nrec);
+	return adapt_recur(f,f2,a,b,acc,eps,nrec,plot);
 }
 
 
@@ -55,40 +56,48 @@ int main() {
 	printf("I = exact solution\n");
 	printf("Q = numerical approximation\n");
 	
-	int calls = 0;
+	int calls = 0, plot = 0;
 	double Q, a = 0, b = 1, acc = 1e-6, eps = 1e-6;
 	
 	double f1(double x) {calls++; return x;}
 	printf("\nIntegrating f(x) = x from 0 to 1 (acc = eps = 1e-6) ...\n");
-	Q = adapt_init(f1,a,b,acc,eps);
+	Q = adapt_init(f1,a,b,acc,eps,plot);
 	printf("I = 0.5\n");
 	printf("Q = %.16g, function calls = %d\n",Q,calls);
 	
+	calls = 0;
 	double f2(double x) {calls++; return sqrt(x);}
 	printf("\nIntegrating f(x) = sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...\n");
-	Q = adapt_init(f2,a,b,acc,eps);
+	Q = adapt_init(f2,a,b,acc,eps,plot);
 	printf("I = 0.666 ...\n");
 	printf("Q = %.16g, function calls = %d\n",Q,calls);
 
 	calls = 0;
 	double f3(double x) {calls++; return 1/sqrt(x);}
 	printf("\nIntegrating f(x) = 1/sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...\n");
-	Q = adapt_init(f3,a,b,acc,eps);
+	Q = adapt_init(f3,a,b,acc,eps,plot);
 	printf("I = 2\n");
 	printf("Q = %.16g, function calls = %d\n",Q,calls);
 	
 	calls = 0;
 	double f4(double x) {calls++; return log(x)/sqrt(x);}
 	printf("\nIntegrating f(x) = ln(x)/sqrt(x) from 0 to 1 (acc = eps = 1e-6) ...\n");
-	Q = adapt_init(f4,a,b,acc,eps);
+	Q = adapt_init(f4,a,b,acc,eps,plot);
 	printf("I = -4\n");
 	printf("Q = %.16g, function calls = %d\n",Q,calls);
-	
+
 	calls = 0, acc = DBL_EPSILON, eps = DBL_EPSILON;
 	double f5(double x) {calls++; return 4*sqrt(1-(1-x)*(1-x));}
 	printf("\nIntegrating f(x) = 4*sqrt(1-(1-x)^2) from 0 to 1 (acc = eps = DBL_EPSILON) ...\n");
-	Q = adapt_init(f5,a,b,acc,eps);
-	printf("I = %.16g\n",M_PI);
+	Q = adapt_init(f5,a,b,acc,eps,plot);
+	printf("I = %.16g ...\n",M_PI);
+	printf("Q = %.16g, function calls = %d\n",Q,calls);
+	
+	calls = 0, a = 0, b = 2*M_PI, acc = 1e-6, eps = 1e-6, plot = 1;
+	double f6(double x) {calls++; return sin(x)/x;}
+	printf("\nIntegrating f(x) = sin(x)/x from 0 to 2*pi (acc = eps = 1e-6) ...\n");
+	Q = adapt_init(f6,a,b,acc,eps,plot);
+	printf("I = 1.418151576132628 ...\n");
 	printf("Q = %.16g, function calls = %d\n",Q,calls);
 	
 	return 0;

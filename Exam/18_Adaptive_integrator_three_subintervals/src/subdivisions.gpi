@@ -1,0 +1,31 @@
+set terminal pngcairo size 1000,500 enhanced
+set xrange [0:1]
+set yrange [0:1]
+set xlabel 'x'
+set ylabel 'f(x)'
+set title 'Subdivisions when numerically integrating f(x) = sin(x)/x function'
+set key top right
+
+do for [i=0:274] {
+	set output sprintf('sinc_frame%03.0f.png',i)
+	plot [0:2*pi] [-0.3:1] sin(x)/x lw 3 lc rgb 'black' title 'f(x) = sin(x)/x' \
+		,0 w l lw 1 lc rgb 'black' notitle \
+		,'subdivisions.txt' u 1:2 every :::0::i w l notitle \
+	    ,'subdivisions.txt' u 3:4 every :::0::i w l notitle
+}
+
+# Create .avi movie with mencoder
+ENCODER = system('which mencoder');
+if (strlen(ENCODER)==0) print '=== mencoder not found ==='; exit
+CMD = 'mencoder mf://*.png -mf fps=30:type=png -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell -oac copy -o subdivisions.avi'
+system(CMD)
+
+# Create .webm
+ENCODER = system('which ffmpeg')
+if (strlen(ENCODER)==0) print '=== ffmpeg not found, exit ==='; exit
+CMD = 'ffmpeg -i subdivisions.avi subdivisions.webm'
+system(CMD)
+
+# Clear directory
+system('rm *.png')
+system('rm *.avi')

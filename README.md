@@ -6,4 +6,4 @@ The repository is split into two parts:
     
     Implementation of numerical methods in C
 
-- Jens S. K. Jensen / Icytroll
+- Jens Jensen / Icytroll
